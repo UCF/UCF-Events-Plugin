@@ -3,11 +3,19 @@
  * Handles plugin configuration
  */
 
-// TODO set 'type' arg for all settings to 'option'
 // TODO should these go under a settings page instead of the customizer?
 
 class UCF_Events_Config {
-	 public static function ucf_events_add_customizer_sections( $wp_customize ) {
+	public static
+		$default_options = array(
+			'title'       => 'Events',
+			'layout'      => 'classic',
+			'feed_url'    => 'http://events.ucf.edu/upcoming/feed.json',
+			'limit'       => 3,
+			'include_css' => true
+		);
+
+	public static function ucf_events_add_customizer_sections( $wp_customize ) {
 		$wp_customize->add_section(
 			'ucf_events_plugin_settings',
 			array(
@@ -17,9 +25,12 @@ class UCF_Events_Config {
 	}
 
 	public static function ucf_events_add_customizer_settings( $wp_customize ) {
-
 		$wp_customize->add_setting(
-			'ucf_events_feed_url'
+			'ucf_events_feed_url',
+			array(
+				'type'    => 'option',
+				'default' => self::$defaults['feed_url']
+			)
 		);
 		$wp_customize->add_control(
 			'ucf_events_feed_url',
@@ -32,7 +43,11 @@ class UCF_Events_Config {
 		);
 
 		$wp_customize->add_setting(
-			'ucf_events_include_css'
+			'ucf_events_include_css',
+			array(
+				'type'    => 'option',
+				'default' => self::$defaults['include_css']
+			)
 		);
 		$wp_customize->add_control(
 			'ucf_events_include_css',
@@ -53,6 +68,54 @@ class UCF_Events_Config {
 		$layouts = apply_filters( 'ucf_events_get_layouts', $layouts );
 
 		return $layouts;
+	}
+
+	/**
+	 * Returns a list of default plugin options.
+	 * @return array
+	 **/
+	public static function get_default_options() {
+		return self::$default_options;
+	}
+
+	/**
+	 * Returns an array with plugin defaults applied.
+	 * @param array $list
+	 * @return array
+	 **/
+	public static function apply_default_options( $list ) {
+		$defaults = self::get_default_options();
+		$options = array();
+
+		foreach ( $list as $key => $val ) {
+			$options[$key] = !empty( $val ) ? $val : $defaults[$key];
+		}
+
+		$options = self::format_options( $options );
+
+		return $options;
+	}
+
+	/**
+	 * Performs typecasting, sanitization, etc on an array of plugin options.
+	 * @param array $list
+	 * @return array
+	 **/
+	public static function format_options( $list ) {
+		foreach ( $list as $key => $val ) {
+			switch ( $key ) {
+				case 'limit':
+					$list[$key] = intval( $val );
+					break;
+				case 'include_css':
+					$list[$key] = filter_var( $val, FILTER_VALIDATE_BOOLEAN );
+					break;
+				default:
+					break;
+			}
+		}
+
+		return $list;
 	}
 }
 

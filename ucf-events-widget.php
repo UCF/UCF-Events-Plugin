@@ -16,19 +16,24 @@ class UCF_Events_Widget extends WP_Widget {
 	}
 
 	/**
+	 * Returns an array of $instance options with defaults applied.
+	 * @param array $instance
+	 **/
+	public function get_instance_options( $instance ) {
+		return UCF_Events_Config::apply_default_options( $instance );
+	}
+
+	/**
 	 * Outputs the content of the widget
 	 * @param array $args
 	 * @param array $instance
 	 **/
 	public function widget( $args, $instance ) {
-		$title  = ! empty( $instance['title'] ) ? $instance['title'] : 'Events';
-		$limit  = (int) $instance['limit'];
-		$layout = $instance['layout'];
-		// TODO other args
+		$options = $this->get_instance_options( $instance );
 
 		$items = UCF_Events_Feed::get_events_items( array(
-			'title'    => $title,
-			'limit'    => $limit
+			'title'    => $options['title'],
+			'limit'    => $options['limit']
 			// TODO other args
 		) );
 
@@ -36,7 +41,7 @@ class UCF_Events_Widget extends WP_Widget {
 ?>
 		<aside class="widget ucf-events-widget">
 <?php
-		UCF_Events_Common::display_events_items( $items, $layout, $title );
+		UCF_Events_Common::display_events_items( $items, $options['layout'], $options['title'] );
 ?>
 		</aside>
 <?php
@@ -44,9 +49,11 @@ class UCF_Events_Widget extends WP_Widget {
 	}
 
 	public function form( $instance ) {
-		$title = ! empty( $instance['title'] ) ? $instance['title'] : __( 'Events', 'ucf_events' );
-		$layout = ! empty( $instance['layout'] ) ? $instance['layout'] : 'classic';
-		$limit = ! empty( $instance['limit'] ) ? $instance['limit'] : '3';
+		$options = $this->get_instance_options( $instance );
+
+		$title  = $options['title'];
+		$limit  = $options['limit'];
+		$layout = $options['layout'];
 		// TODO other args
 ?>
 		<p>
@@ -69,12 +76,7 @@ class UCF_Events_Widget extends WP_Widget {
 	}
 
 	public function update( $new_instance, $old_instance ) {
-		$instance = array();
-		$instance['title']    = ( ! empty( $new_instance['title'] ) ) ? $new_instance['title'] : __( 'Events', 'ucf-events' );
-		$instance['limit']    = ( ! empty( $new_instance['limit'] ) ) ? (int) $new_instance['limit'] : 3;
-		$instance['layout']   = ( ! empty( $new_instance['layout'] ) ) ? $new_instance['layout'] : 'classic';
-		// TODO other args
-
+		$instance = $this->get_instance_options( $new_instance );
 		return $instance;
 	}
 }
