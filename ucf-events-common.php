@@ -3,11 +3,9 @@
  * Place common functions here.
  **/
 
-// TODO replace theme mod references with options
-
 class UCF_Events_Common {
 	public function display_events_items( $items, $layout, $title ) {
-		if ( get_theme_mod( 'ucf_events_include_css', False ) ) {
+		if ( get_option( 'ucf_events_include_css', False ) ) {
 			wp_enqueue_style( 'ucf_events_css', plugins_url( 'static/css/ucf-events.min.css', __FILE__ ), false, false, 'all' );
 		}
 
@@ -25,6 +23,7 @@ class UCF_Events_Common {
 	}
 }
 
+
 function ucf_events_display_classic_before( $items, $title ) {
 	ob_start();
 ?>
@@ -35,6 +34,7 @@ function ucf_events_display_classic_before( $items, $title ) {
 }
 
 add_action( 'ucf_events_display_classic_before', 'ucf_events_display_classic_before', 10, 2 );
+
 
 function ucf_events_display_classic( $items, $title ) {
 	ob_start();
@@ -53,6 +53,7 @@ function ucf_events_display_classic( $items, $title ) {
 }
 
 add_action( 'ucf_events_display_classic', 'ucf_events_display_classic', 10, 2 );
+
 
 function ucf_events_display_classic_after( $items, $title ) {
 	ob_start();
