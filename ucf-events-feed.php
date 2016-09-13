@@ -5,10 +5,12 @@
 
 class UCF_Events_Feed {
 	public static function get_events_items( $args ) {
+		// TODO check for transient data before fetching new content
+
 		$args = array(
 			'url'        => get_theme_mod( 'ucf_events_feed_url', 'https://events.ucf.edu/upcoming/feed.json' ), // TODO make option, not theme mod
-			'limit'      => $args['limit'] ? (int) $args['limit'] : 3,
-			'offset'     => $args['offset'] ? (int) $args['offset'] : null,
+			'limit'      => isset( $args['limit'] ) ? (int) $args['limit'] : 3,
+			'offset'     => isset( $args['offset'] ) ? (int) $args['offset'] : null,
 			// TODO other args
 		);
 
@@ -33,6 +35,13 @@ class UCF_Events_Feed {
 		$file = file_get_contents( $req_url, false, $context );
 
 		$items = json_decode( $file );
+
+		// Force results count limit
+		if ( $items && count( $items ) > $args['limit'] ) {
+			$items = array_slice( $items, 0, $args['limit'] );
+		}
+
+		// TODO set transient data here
 
 		return $items;
 	}
