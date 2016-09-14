@@ -56,7 +56,24 @@ class UCF_Events_Config {
 			array(
 				'type'        => 'checkbox',
 				'label'       => 'Include Default CSS',
-				'description' => 'Include the default css stylesheet on the page.',
+				'description' => 'Include the default css stylesheet for event results within the theme.<br>Leave this checkbox checked unless your theme provides custom styles for event results.',
+				'section'     => 'ucf_events_plugin_settings'
+			)
+		);
+
+		$wp_customize->add_setting(
+			'ucf_events_use_rich_snippets',
+			array(
+				'type'    => 'option',
+				'default' => self::$default_options['use_rich_snippets']
+			)
+		);
+		$wp_customize->add_control(
+			'ucf_events_use_rich_snippets',
+			array(
+				'type'        => 'checkbox',
+				'label'       => 'Use rich snippets',
+				'description' => 'Include rich snippet data for displayed events. <a target="_blank" href="https://developers.google.com/search/docs/guides/intro-structured-data">More info</a>',
 				'section'     => 'ucf_events_plugin_settings'
 			)
 		);

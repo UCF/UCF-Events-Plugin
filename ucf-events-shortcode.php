@@ -31,24 +31,38 @@ if ( class_exists( 'UCF_Modular_Shortcode' ) ) {
 				array(
 					'name'      => 'Title',
 					'id'        => 'title',
-					'help_text' => 'The title to display before the events feed',
+					'help_text' => 'The title to display before the events feed.',
 					'type'      => 'text',
 					'default'   => $defaults['title']
 				),
 				array(
+					'name'      => 'Feed URL',
+					'id'        => 'title',
+					'help_text' => 'The URL from which feed data will be fetched from events.ucf.edu. Defaults to the Feed URL set in the WordPress Customizer.',
+					'type'      => 'text',
+					'default'   => $defaults['feed_url']
+				),
+				array(
 					'name'      => 'Layout',
 					'id'        => 'layout',
-					'help_text' => 'The layout to use to display the events items',
+					'help_text' => 'The layout to use to display the events items.',
 					'type'      => 'dropdown',
 					'choices'   => $layouts,
 					'default'   => $defaults['layout']
 				),
 				array(
-					'name'      => 'Number of Events Items',
+					'name'      => 'Number of Events',
 					'id'        => 'limit',
-					'help_text' => 'The number of events items to show',
+					'help_text' => 'The number of events to show.',
 					'type'      => 'number',
 					'default'   => $defaults['limit']
+				),
+				array(
+					'name'      => 'Offset Event Results',
+					'id'        => 'offset',
+					'help_text' => 'The number of event results that should be skipped. e.g., to skip the first event in the returned results, set the offset to "1".',
+					'type'      => 'number',
+					'default'   => $defaults['offset']
 				)
 				// TODO other args
 			);

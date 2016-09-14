@@ -39,17 +39,23 @@ class UCF_Events_Widget extends WP_Widget {
 	public function form( $instance ) {
 		$options = UCF_Events_Config::apply_default_options( $instance );
 
-		$title  = $options['title'];
-		$limit  = $options['limit'];
-		$layout = $options['layout'];
+		$title     = $options['title'];
+		$feed_url  = $options['feed_url'];
+		$limit     = $options['limit'];
+		$layout    = $options['layout'];
+		$offset    = $options['offset'];
 		// TODO other args
 ?>
 		<p>
-			<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php echo __( 'Title' ); ?></label>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php echo __( 'Title' ); ?>:</label>
 			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>">
 		</p>
 		<p>
-			<label for="<?php echo esc_attr( $this->get_field_id( 'layout' ) ); ?>"><?php echo __( 'Select Layout' ); ?></label>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'feed_url' ) ); ?>"><?php echo __( 'Feed URL' ); ?>:</label>
+			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'feed_url' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'feed_url' ) ); ?>" type="text" value="<?php echo esc_attr( $feed_url ); ?>">
+		</p>
+		<p>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'layout' ) ); ?>"><?php echo __( 'Select Layout' ); ?>:</label>
 			<select class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'layout' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'layout' ) ); ?>" type="text">
 			<?php foreach( UCF_Events_Config::get_layouts() as $key=>$value ) : ?>
 				<option value="<?php echo $key; ?>" <?php echo ( $layout == $key ) ? 'selected' : ''; ?>><?php echo $value; ?></option>
@@ -57,8 +63,12 @@ class UCF_Events_Widget extends WP_Widget {
 			</select>
 		</p>
 		<p>
-			<label for="<?php echo esc_attr( $this->get_field_id( 'limit' ) ); ?>"><?php echo __( 'Limit results' ); ?></label>
-			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'limit' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'limit' ) ); ?>" type="number" value="<?php echo esc_attr( $limit ); ?>" >
+			<label for="<?php echo esc_attr( $this->get_field_id( 'limit' ) ); ?>"><?php echo __( 'Limit results' ); ?>:</label>
+			<input class="tiny-text" id="<?php echo esc_attr( $this->get_field_id( 'limit' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'limit' ) ); ?>" type="number" value="<?php echo esc_attr( $limit ); ?>" >
+		</p>
+		<p>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'offset' ) ); ?>"><?php echo __( 'Offset results' ); ?>:</label>
+			<input class="tiny-text" id="<?php echo esc_attr( $this->get_field_id( 'offset' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'offset' ) ); ?>" type="number" value="<?php echo esc_attr( $offset ); ?>" >
 		</p>
 <?php
 	}
