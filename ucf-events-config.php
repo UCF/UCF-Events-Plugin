@@ -100,9 +100,12 @@ class UCF_Events_Config {
 
 		// Apply default values configurable within the customizer:
 		$customizer_defaults = array(
-			'feed_url'    => get_option( 'ucf_events_feed_url' ),
-			'include_css' => get_option( 'ucf_events_include_css' )
+			'feed_url'          => get_option( 'ucf_events_feed_url' ),
+			'include_css'       => get_option( 'ucf_events_include_css' ),
+			'use_rich_snippets' => get_option( 'ucf_events_use_rich_snippets' )
 		);
+
+		$customizer_defaults = self::format_options( $customizer_defaults );
 
 		$defaults = array_merge( $defaults, $customizer_defaults );
 
@@ -149,6 +152,7 @@ class UCF_Events_Config {
 					$list[$key] = intval( $val );
 					break;
 				case 'include_css':
+				case 'use_rich_snippets':
 					$list[$key] = filter_var( $val, FILTER_VALIDATE_BOOLEAN );
 					break;
 				default:
