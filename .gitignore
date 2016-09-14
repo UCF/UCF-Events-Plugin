@@ -21,6 +21,7 @@ CVS
 ._*
 Thumbs.db
 
+gulp-config.json
 node_modules/
 bower_components/
 .sass-cache/
