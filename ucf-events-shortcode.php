@@ -11,7 +11,7 @@ function sc_ucf_events( $atts, $content='' ) {
 	$atts = UCF_Events_Config::format_options( $atts );
 
 	$items = UCF_Events_Feed::get_events( $atts );
-	echo UCF_Events_Common::display_events( $items, $atts['layout'], $atts['title'] );
+	echo UCF_Events_Common::display_events( $items, $atts['layout'], $atts['title'], 'shortcode' );
 }
 add_shortcode( 'ucf-events', 'sc_ucf_events' );
 

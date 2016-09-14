@@ -1,0 +1,41 @@
+.ucf-events-classic .events {
+  margin: 1.5em 0;
+}
+
+.ucf-events-classic .events-subheadings {
+  text-align: center;
+}
+
+.ucf-events-classic .event-row {
+  display: table-row;
+}
+
+.ucf-events-classic .event-col {
+  display: table-cell;
+  vertical-align: top;
+}
+
+.ucf-events-classic .event-location,
+.ucf-events-classic .event-start-date,
+.ucf-events-classic .event-start-time,
+.ucf-events-classic .event-title {
+  display: block;
+}
+
+.ucf-events-classic .event {
+  font-size: .9em;
+}
+
+.ucf-events-classic .event-when {
+  min-width: 4em;
+  padding: .5em .75em .5em 0;
+}
+
+.ucf-events-classic .event-content {
+  padding: .5em 0 .5em .75em;
+}
+
+.ucf-events-classic .event-location {
+  font-size: .8em;
+  text-transform: uppercase;
+}

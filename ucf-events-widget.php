@@ -29,7 +29,7 @@ class UCF_Events_Widget extends WP_Widget {
 ?>
 		<aside class="widget ucf-events-widget">
 <?php
-		UCF_Events_Common::display_events( $items, $options['layout'], $options['title'] );
+		UCF_Events_Common::display_events( $items, $options['layout'], $options['title'], 'widget' );
 ?>
 		</aside>
 <?php
@@ -63,11 +63,11 @@ class UCF_Events_Widget extends WP_Widget {
 			</select>
 		</p>
 		<p>
-			<label for="<?php echo esc_attr( $this->get_field_id( 'limit' ) ); ?>"><?php echo __( 'Limit results' ); ?>:</label>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'limit' ) ); ?>"><?php echo __( 'Limit Results' ); ?>:</label>
 			<input class="tiny-text" id="<?php echo esc_attr( $this->get_field_id( 'limit' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'limit' ) ); ?>" type="number" value="<?php echo esc_attr( $limit ); ?>" >
 		</p>
 		<p>
-			<label for="<?php echo esc_attr( $this->get_field_id( 'offset' ) ); ?>"><?php echo __( 'Offset results' ); ?>:</label>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'offset' ) ); ?>"><?php echo __( 'Offset Results' ); ?>:</label>
 			<input class="tiny-text" id="<?php echo esc_attr( $this->get_field_id( 'offset' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'offset' ) ); ?>" type="number" value="<?php echo esc_attr( $offset ); ?>" >
 		</p>
 <?php
