@@ -6,16 +6,12 @@
 function sc_ucf_events( $atts, $content='' ) {
 	$defaults = UCF_Events_Config::get_default_options();
 
+	// NOTE: some attributes in $atts may have no effect within the shortcode.
 	$atts = shortcode_atts( $defaults, $atts, 'sc_ucf_events' );
 	$atts = UCF_Events_Config::format_options( $atts );
 
-	$args = array(
-		'limit'    => $atts['limit']
-		// TODO other args
-	);
-
-	$items = UCF_Events_Feed::get_events_items( $args );
-	echo UCF_Events_Common::display_events_items( $items, $atts['layout'], $atts['title'] );
+	$items = UCF_Events_Feed::get_events( $atts );
+	echo UCF_Events_Common::display_events( $items, $atts['layout'], $atts['title'] );
 }
 add_shortcode( 'ucf-events', 'sc_ucf_events' );
 

@@ -8,11 +8,13 @@
 class UCF_Events_Config {
 	public static
 		$default_options = array(
-			'title'       => 'Events',
-			'layout'      => 'classic',
-			'feed_url'    => 'http://events.ucf.edu/upcoming/feed.json',
-			'limit'       => 3,
-			'include_css' => true
+			'title'             => 'Events',
+			'layout'            => 'classic',
+			'feed_url'          => 'http://events.ucf.edu/upcoming/feed.json',
+			'limit'             => 3,
+			'offset'            => 0,
+			'include_css'       => true,
+			'use_rich_snippets' => false  // TODO implement this
 		);
 
 	public static function ucf_events_add_customizer_sections( $wp_customize ) {
@@ -29,7 +31,7 @@ class UCF_Events_Config {
 			'ucf_events_feed_url',
 			array(
 				'type'    => 'option',
-				'default' => self::$defaults['feed_url']
+				'default' => self::$default_options['feed_url']
 			)
 		);
 		$wp_customize->add_control(
@@ -46,7 +48,7 @@ class UCF_Events_Config {
 			'ucf_events_include_css',
 			array(
 				'type'    => 'option',
-				'default' => self::$defaults['include_css']
+				'default' => self::$default_options['include_css']
 			)
 		);
 		$wp_customize->add_control(
@@ -81,14 +83,21 @@ class UCF_Events_Config {
 	/**
 	 * Returns an array with plugin defaults applied.
 	 * @param array $list
+	 * @param boolean $list_keys_only Modifies results to only return array key
+	 *                                values present in $list.
 	 * @return array
 	 **/
-	public static function apply_default_options( $list ) {
+	public static function apply_default_options( $list, $list_keys_only=false ) {
 		$defaults = self::get_default_options();
 		$options = array();
 
-		foreach ( $list as $key => $val ) {
-			$options[$key] = !empty( $val ) ? $val : $defaults[$key];
+		if ( $list_keys_only ) {
+			foreach ( $list as $key => $val ) {
+				$options[$key] = !empty( $val ) ? $val : $defaults[$key];
+			}
+		}
+		else {
+			$options = array_merge( $defaults, $list );
 		}
 
 		$options = self::format_options( $options );
@@ -105,6 +114,7 @@ class UCF_Events_Config {
 		foreach ( $list as $key => $val ) {
 			switch ( $key ) {
 				case 'limit':
+				case 'offset':
 					$list[$key] = intval( $val );
 					break;
 				case 'include_css':
@@ -119,6 +129,7 @@ class UCF_Events_Config {
 	}
 }
 
+add_action( 'customize_register', array( 'UCF_Events_Config', 'ucf_events_add_customizer_sections' ) );
 add_action( 'customize_register', array( 'UCF_Events_Config', 'ucf_events_add_customizer_settings' ) );
 
 ?>
