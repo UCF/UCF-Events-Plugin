@@ -39,7 +39,7 @@ class UCF_Events_Config {
 			array(
 				'type'        => 'text',
 				'label'       => 'UCF Events JSON Feed URL',
-				'description' => 'The URL of the desired JSON feed from events.ucf.edu.',
+				'description' => 'The default URL to use for event feeds from events.ucf.edu.',
 				'section'     => 'ucf_events_plugin_settings'
 			)
 		);
@@ -73,15 +73,28 @@ class UCF_Events_Config {
 	}
 
 	/**
-	 * Returns a list of default plugin options.
+	 * Returns a list of default plugin options. Applies any overridden
+	 * default values set within the customizer.
+	 *
 	 * @return array
 	 **/
 	public static function get_default_options() {
-		return self::$default_options;
+		$defaults = self::$default_options;
+
+		// Apply default values configurable within the customizer:
+		$customizer_defaults = array(
+			'feed_url'    => get_option( 'ucf_events_feed_url' ),
+			'include_css' => get_option( 'ucf_events_include_css' )
+		);
+
+		$defaults = array_merge( $defaults, $customizer_defaults );
+
+		return $defaults;
 	}
 
 	/**
 	 * Returns an array with plugin defaults applied.
+	 *
 	 * @param array $list
 	 * @param boolean $list_keys_only Modifies results to only return array key
 	 *                                values present in $list.
@@ -107,6 +120,7 @@ class UCF_Events_Config {
 
 	/**
 	 * Performs typecasting, sanitization, etc on an array of plugin options.
+	 *
 	 * @param array $list
 	 * @return array
 	 **/
