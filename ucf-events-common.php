@@ -41,8 +41,9 @@ function ucf_events_display_classic( $items, $title ) {
 ?>
 	<div class="events-items">
 <?php
-	foreach( $items as $event ) :
-		$starts = new DateTime( $event->starts );
+	if ( $items ):
+		foreach( $items as $event ) :
+			$starts = new DateTime( $event->starts );
 ?>
 		<div class="events-item">
 			<div class="events-item-when">
@@ -65,7 +66,12 @@ function ucf_events_display_classic( $items, $title ) {
 			</div>
 		</div>
 <?php
-	endforeach;
+		endforeach;
+	else:
+?>
+		<span class="events-error">No events found.</span>
+<?php
+	endif;
 
 	echo ob_get_clean();
 }
