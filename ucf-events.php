@@ -13,6 +13,9 @@ if ( ! defined( 'WPINC' ) ) {
 
 add_action( 'plugins_loaded', function() {
 
+	// TODO these files should be moved to an /includes/ folder
+	// TODO need a uninstall.php file
+
 	require_once 'ucf-events-config.php';
 	require_once 'ucf-events-feed.php';
 	require_once 'ucf-events-common.php';
