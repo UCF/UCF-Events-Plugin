@@ -27,7 +27,7 @@ class UCF_Events_Common {
 function ucf_events_display_classic_before( $items, $title, $display_type ) {
 	ob_start();
 ?>
-	<aside class="ucf-events ucf-events-classic">
+	<div class="ucf-events ucf-events-classic">
 
 		<?php if ( $display_type == 'widget' ): ?>
 
@@ -95,7 +95,7 @@ add_action( 'ucf_events_display_classic', 'ucf_events_display_classic', 10, 3 );
 function ucf_events_display_classic_after( $items, $title ) {
 	ob_start();
 ?>
-	</aside>
+	</div>
 <?php
 	echo ob_get_clean();
 }
