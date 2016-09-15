@@ -3,20 +3,25 @@
  * Handles the registration of the UCF Events Shortcode
  **/
 
-function sc_ucf_events( $atts, $content='' ) {
-	$defaults = UCF_Events_Config::get_default_options();
+if ( !function_exists( 'sc_ucf_events' ) ) {
 
-	// NOTE: some attributes in $atts may have no effect within the shortcode.
-	$atts = shortcode_atts( $defaults, $atts, 'sc_ucf_events' );
-	$atts = UCF_Events_Config::format_options( $atts );
+	function sc_ucf_events( $atts, $content='' ) {
+		$defaults = UCF_Events_Config::get_default_options();
 
-	$items = UCF_Events_Feed::get_events( $atts );
-	echo UCF_Events_Common::display_events( $items, $atts['layout'], $atts['title'], 'shortcode' );
+		// NOTE: some attributes in $atts may have no effect within the shortcode.
+		$atts = shortcode_atts( $defaults, $atts, 'sc_ucf_events' );
+		$atts = UCF_Events_Config::format_options( $atts );
+
+		$items = UCF_Events_Feed::get_events( $atts );
+		echo UCF_Events_Common::display_events( $items, $atts['layout'], $atts['title'], 'shortcode' );
+	}
+	add_shortcode( 'ucf-events', 'sc_ucf_events' );
+
 }
-add_shortcode( 'ucf-events', 'sc_ucf_events' );
 
 
-if ( class_exists( 'UCF_Modular_Shortcode' ) ) {
+if ( class_exists( 'UCF_Modular_Shortcode' ) && !class_exists( 'UCF_Events_Shortcode' ) ) {
+
 	class UCF_Events_Shortcode extends UCF_Modular_Shortcode {
 		public
 			$name        = 'UCF Events Feed',
@@ -68,7 +73,5 @@ if ( class_exists( 'UCF_Modular_Shortcode' ) ) {
 			);
 		}
 	}
+
 }
-
-
-?>
