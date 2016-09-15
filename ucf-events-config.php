@@ -14,7 +14,7 @@ class UCF_Events_Config {
 			'limit'             => 3,
 			'offset'            => 0,
 			'include_css'       => true,
-			'use_rich_snippets' => false  // TODO implement this
+			'use_rich_snippets' => false  // TODO implement this (currently does nothing)
 		);
 
 	public static function ucf_events_add_customizer_sections( $wp_customize ) {

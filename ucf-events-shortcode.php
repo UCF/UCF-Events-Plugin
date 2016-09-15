@@ -64,7 +64,7 @@ if ( class_exists( 'UCF_Modular_Shortcode' ) ) {
 					'type'      => 'number',
 					'default'   => $defaults['offset']
 				)
-				// TODO other args
+				// TODO other args?
 			);
 		}
 	}
