@@ -31,7 +31,7 @@ function ucf_events_display_classic_before( $items, $title, $display_type ) {
 
 		<?php if ( $display_type == 'widget' ): ?>
 
-		<h3 class="ucf-events-title widget-title"><?php echo $title; ?></h3>
+		<?php echo $title;  // Title is already formatted with heading by widget class ?>
 
 		<?php else: ?>
 
@@ -85,6 +85,8 @@ function ucf_events_display_classic( $items, $title ) {
 	<?php else: ?>
 		<span class="ucf-events-error">No events found.</span>
 	<?php endif; ?>
+
+	</div>
 <?php
 	echo ob_get_clean();
 }

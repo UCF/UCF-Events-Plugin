@@ -24,15 +24,17 @@ class UCF_Events_Widget extends WP_Widget {
 		$options = UCF_Events_Config::apply_default_options( $instance );
 
 		$items = UCF_Events_Feed::get_events( $options );
+		$title = apply_filters( 'widget_title', $options['title'], $this->id_base );
+		$title = $args['before_title'] . $title . $args['after_title'];
 
 		ob_start();
-?>
-		<aside class="widget ucf-events-widget">
-<?php
-		UCF_Events_Common::display_events( $items, $options['layout'], $options['title'], 'widget' );
-?>
-		</aside>
-<?php
+
+		echo $args['before_widget'];
+
+		UCF_Events_Common::display_events( $items, $options['layout'], $title, 'widget' );
+
+		echo $args['after_widget'];
+
 		echo ob_get_clean();
 	}
 
