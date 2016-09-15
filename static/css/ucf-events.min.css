@@ -1,41 +1,41 @@
-.ucf-events-classic .events {
+.ucf-events-classic .ucf-events {
   margin: 1.5em 0;
 }
 
-.ucf-events-classic .events-subheadings {
+.ucf-events-classic .ucf-events-subheadings {
   text-align: center;
 }
 
-.ucf-events-classic .event-row {
+.ucf-events-classic .ucf-event-row {
   display: table-row;
 }
 
-.ucf-events-classic .event-col {
+.ucf-events-classic .ucf-event-col {
   display: table-cell;
   vertical-align: top;
 }
 
-.ucf-events-classic .event-location,
-.ucf-events-classic .event-start-date,
-.ucf-events-classic .event-start-time,
-.ucf-events-classic .event-title {
+.ucf-events-classic .ucf-event-location,
+.ucf-events-classic .ucf-event-start-date,
+.ucf-events-classic .ucf-event-start-time,
+.ucf-events-classic .ucf-event-title {
   display: block;
 }
 
-.ucf-events-classic .event {
+.ucf-events-classic .ucf-event {
   font-size: .9em;
 }
 
-.ucf-events-classic .event-when {
+.ucf-events-classic .ucf-event-when {
   min-width: 4em;
-  padding: .5em .75em .5em 0;
+  padding: .5em .5em .5em 0;
 }
 
-.ucf-events-classic .event-content {
-  padding: .5em 0 .5em .75em;
+.ucf-events-classic .ucf-event-content {
+  padding: .5em 0 .5em .5em;
 }
 
-.ucf-events-classic .event-location {
+.ucf-events-classic .ucf-event-location {
   font-size: .8em;
   text-transform: uppercase;
 }

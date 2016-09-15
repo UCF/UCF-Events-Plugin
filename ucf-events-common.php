@@ -29,15 +29,15 @@ function ucf_events_display_classic_before( $items, $title, $display_type ) {
 ?>
 	<aside class="ucf-events ucf-events-classic">
 
-	<?php if ( $display_type == 'widget' ): ?>
+		<?php if ( $display_type == 'widget' ): ?>
 
-	<h3 class="events-title widget-title"><?php echo $title; ?></h3>
+		<h3 class="ucf-events-title widget-title"><?php echo $title; ?></h3>
 
-	<?php else: ?>
+		<?php else: ?>
 
-	<h2 class="events-title"><?php echo $title; ?></h2>
+		<h2 class="ucf-events-title"><?php echo $title; ?></h2>
 
-	<?php endif; ?>
+		<?php endif; ?>
 <?php
 	echo ob_get_clean();
 }
@@ -48,15 +48,15 @@ add_action( 'ucf_events_display_classic_before', 'ucf_events_display_classic_bef
 function ucf_events_display_classic( $items, $title ) {
 	ob_start();
 ?>
-	<div class="events">
+	<div class="ucf-events-list">
 
 	<?php if ( $items ): ?>
-		<div class="events-subheadings event-row">
-			<div class="event-col event-when">
+		<div class="ucf-events-subheadings ucf-event-row">
+			<div class="ucf-event-col ucf-event-when">
 				<strong class="events-subheading">Date</strong>
 			</div>
-			<div class="event-col event-content">
-				<strong class="events-subheading">Description</strong>
+			<div class="ucf-event-col ucf-event-content">
+				<strong class="ucf-events-subheading">Description</strong>
 			</div>
 		</div>
 
@@ -64,18 +64,18 @@ function ucf_events_display_classic( $items, $title ) {
 		foreach( $items as $event ) :
 			$starts = new DateTime( $event->starts );
 		?>
-		<div class="event event-row">
-			<div class="event-col event-when">
-				<time class="event-start-datetime" datetime="<?php echo $starts->format( 'c' ); ?>">
-					<span class="event-start-date"><?php echo $starts->format( 'M j' ); ?></span>
-					<span class="event-start-time"><?php echo $starts->format( 'g:i a' ); ?></span>
+		<div class="ucf-event ucf-event-row">
+			<div class="ucf-event-col ucf-event-when">
+				<time class="ucf-event-start-datetime" datetime="<?php echo $starts->format( 'c' ); ?>">
+					<span class="ucf-event-start-date"><?php echo $starts->format( 'M j' ); ?></span>
+					<span class="ucf-event-start-time"><?php echo $starts->format( 'g:i a' ); ?></span>
 				</time>
 			</div>
-			<div class="event-col event-content">
-				<a class="event-title" href="<?php echo $event->url; ?>">
+			<div class="ucf-event-col ucf-event-content">
+				<a class="ucf-event-title" href="<?php echo $event->url; ?>">
 					<?php echo $event->title; ?>
 				</a>
-				<a class="event-location" href="<?php echo $event->location_url; ?>">
+				<a class="ucf-event-location" href="<?php echo $event->location_url; ?>">
 					<?php echo $event->location; ?>
 				</a>
 			</div>
@@ -83,7 +83,7 @@ function ucf_events_display_classic( $items, $title ) {
 		<?php endforeach; ?>
 
 	<?php else: ?>
-		<span class="events-error">No events found.</span>
+		<span class="ucf-events-error">No events found.</span>
 	<?php endif; ?>
 <?php
 	echo ob_get_clean();
