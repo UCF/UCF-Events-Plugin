@@ -11,13 +11,14 @@ if ( !class_exists( 'UCF_Events_Config' ) ) {
 		public static
 			$option_prefix = 'ucf_events_',
 			$option_defaults = array(
-				'title'             => 'Events',
-				'layout'            => 'classic',
-				'feed_url'          => 'http://events.ucf.edu/upcoming/feed.json',
-				'limit'             => 3,
-				'offset'            => 0,
-				'include_css'       => true,
-				'use_rich_snippets' => false  // TODO implement this (currently does nothing)
+				'title'                => 'Events',
+				'layout'               => 'classic',
+				'feed_url'             => 'http://events.ucf.edu/upcoming/feed.json',
+				'limit'                => 3,
+				'offset'               => 0,
+				'include_css'          => true,
+				'transient_expiration' => 3,  // hours
+				'use_rich_snippets'    => false  // TODO implement this (currently does nothing)
 			);
 
 		public static function ucf_events_add_customizer_sections( $wp_customize ) {
@@ -80,6 +81,23 @@ if ( !class_exists( 'UCF_Events_Config' ) ) {
 					'section'     => self::$option_prefix . 'plugin_settings'
 				)
 			);
+
+			$wp_customize->add_setting(
+				self::$option_prefix . 'transient_expiration',
+				array(
+					'type'    => 'option',
+					'default' => self::$option_defaults['transient_expiration']
+				)
+			);
+			$wp_customize->add_control(
+				self::$option_prefix . 'transient_expiration',
+				array(
+					'type'        => 'text',
+					'label'       => 'Transient data expiration',
+					'description' => 'The length of time, in hours, event data should be cached before fresh data is fetched. Updates to this value will not take effect until after any existing transient events data expires.',
+					'section'     => self::$option_prefix . 'plugin_settings'
+				)
+			);
 		}
 
 		public static function get_layouts() {
@@ -103,9 +121,10 @@ if ( !class_exists( 'UCF_Events_Config' ) ) {
 
 			// Apply default values configurable within the customizer:
 			$customizer_defaults = array(
-				'feed_url'          => get_option( self::$option_prefix . 'feed_url' ),
-				'include_css'       => get_option( self::$option_prefix . 'include_css' ),
-				'use_rich_snippets' => get_option( self::$option_prefix . 'use_rich_snippets' )
+				'feed_url'             => get_option( self::$option_prefix . 'feed_url' ),
+				'include_css'          => get_option( self::$option_prefix . 'include_css' ),
+				'use_rich_snippets'    => get_option( self::$option_prefix . 'use_rich_snippets' ),
+				'transient_expiration' => get_option( self::$option_prefix . 'transient_expiration' )
 			);
 
 			$customizer_defaults = self::format_options( $customizer_defaults );
@@ -154,6 +173,9 @@ if ( !class_exists( 'UCF_Events_Config' ) ) {
 					case 'limit':
 					case 'offset':
 						$list[$key] = intval( $val );
+						break;
+					case 'transient_expiration':
+						$list[$key] = floatval( $val );
 						break;
 					case 'include_css':
 					case 'use_rich_snippets':
