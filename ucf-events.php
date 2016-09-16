@@ -15,8 +15,6 @@ add_action( 'plugins_loaded', function() {
 
 	define( 'UCF_EVENTS__PLUGIN_DIR', __FILE__ );
 
-	// TODO need a uninstall.php file
-
 	require_once 'includes/ucf-events-config.php';
 	require_once 'includes/ucf-events-feed.php';
 	require_once 'includes/ucf-events-common.php';
