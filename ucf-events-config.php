@@ -3,7 +3,7 @@
  * Handles plugin configuration
  */
 
-// TODO should these go under a settings page instead of the customizer?
+// TODO move to custom options page in admin
 
 if ( !class_exists( 'UCF_Events_Config' ) ) {
 
