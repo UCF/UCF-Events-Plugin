@@ -13,14 +13,15 @@ if ( ! defined( 'WPINC' ) ) {
 
 add_action( 'plugins_loaded', function() {
 
-	// TODO these files should be moved to an /includes/ folder
+	define( 'UCF_EVENTS__PLUGIN_DIR', __FILE__ );
+
 	// TODO need a uninstall.php file
 
-	require_once 'ucf-events-config.php';
-	require_once 'ucf-events-feed.php';
-	require_once 'ucf-events-common.php';
-	require_once 'ucf-events-shortcode.php';
-	require_once 'ucf-events-widget.php';
+	require_once 'includes/ucf-events-config.php';
+	require_once 'includes/ucf-events-feed.php';
+	require_once 'includes/ucf-events-common.php';
+	require_once 'includes/ucf-events-shortcode.php';
+	require_once 'includes/ucf-events-widget.php';
 
 	if ( class_exists( 'UCF_Modular_Shortcode' ) ) {
 		// TODO register shortcode interface class here

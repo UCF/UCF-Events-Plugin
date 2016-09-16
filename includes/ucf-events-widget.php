@@ -23,7 +23,7 @@ if ( !class_exists( 'UCF_Events_Widget' ) ) {
 		 * @param array $instance
 		 **/
 		public function widget( $args, $instance ) {
-			$options = UCF_Events_Config::apply_default_options( $instance );
+			$options = UCF_Events_Config::apply_option_defaults( $instance );
 
 			$items = UCF_Events_Feed::get_events( $options );
 			$title = apply_filters( 'widget_title', $options['title'], $this->id_base );
@@ -41,7 +41,7 @@ if ( !class_exists( 'UCF_Events_Widget' ) ) {
 		}
 
 		public function form( $instance ) {
-			$options = UCF_Events_Config::apply_default_options( $instance );
+			$options = UCF_Events_Config::apply_option_defaults( $instance );
 
 			$title     = $options['title'];
 			$feed_url  = $options['feed_url'];
@@ -78,7 +78,7 @@ if ( !class_exists( 'UCF_Events_Widget' ) ) {
 		}
 
 		public function update( $new_instance, $old_instance ) {
-			$instance = UCF_Events_Config::apply_default_options( $new_instance, true );
+			$instance = UCF_Events_Config::apply_option_defaults( $new_instance, true );
 			return $instance;
 		}
 	}

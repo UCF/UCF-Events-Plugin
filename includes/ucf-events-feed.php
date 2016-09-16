@@ -9,7 +9,7 @@ if ( !class_exists( 'UCF_Events_Feed' ) ) {
 		public static function get_events( $args ) {
 			// TODO check for transient data before fetching new content
 
-			$args = UCF_Events_Config::apply_default_options( $args );
+			$args = UCF_Events_Config::apply_option_defaults( $args );
 
 			// Fetch new degree data
 			$opts = array(

@@ -9,7 +9,8 @@ if ( !class_exists( 'UCF_Events_Config' ) ) {
 
 	class UCF_Events_Config {
 		public static
-			$default_options = array(
+			$option_prefix = 'ucf_events_',
+			$option_defaults = array(
 				'title'             => 'Events',
 				'layout'            => 'classic',
 				'feed_url'          => 'http://events.ucf.edu/upcoming/feed.json',
@@ -21,7 +22,7 @@ if ( !class_exists( 'UCF_Events_Config' ) ) {
 
 		public static function ucf_events_add_customizer_sections( $wp_customize ) {
 			$wp_customize->add_section(
-				'ucf_events_plugin_settings',
+				self::$option_prefix . 'plugin_settings',
 				array(
 					'title' => 'UCF Events Plugin Settings'
 				)
@@ -30,53 +31,53 @@ if ( !class_exists( 'UCF_Events_Config' ) ) {
 
 		public static function ucf_events_add_customizer_settings( $wp_customize ) {
 			$wp_customize->add_setting(
-				'ucf_events_feed_url',
+				self::$option_prefix . 'feed_url',
 				array(
 					'type'    => 'option',
-					'default' => self::$default_options['feed_url']
+					'default' => self::$option_defaults['feed_url']
 				)
 			);
 			$wp_customize->add_control(
-				'ucf_events_feed_url',
+				self::$option_prefix . 'feed_url',
 				array(
 					'type'        => 'text',
 					'label'       => 'UCF Events JSON Feed URL',
 					'description' => 'The default URL to use for event feeds from events.ucf.edu.',
-					'section'     => 'ucf_events_plugin_settings'
+					'section'     => self::$option_prefix . 'plugin_settings'
 				)
 			);
 
 			$wp_customize->add_setting(
-				'ucf_events_include_css',
+				self::$option_prefix . 'include_css',
 				array(
 					'type'    => 'option',
-					'default' => self::$default_options['include_css']
+					'default' => self::$option_defaults['include_css']
 				)
 			);
 			$wp_customize->add_control(
-				'ucf_events_include_css',
+				self::$option_prefix . 'include_css',
 				array(
 					'type'        => 'checkbox',
 					'label'       => 'Include Default CSS',
 					'description' => 'Include the default css stylesheet for event results within the theme.<br>Leave this checkbox checked unless your theme provides custom styles for event results.',
-					'section'     => 'ucf_events_plugin_settings'
+					'section'     => self::$option_prefix . 'plugin_settings'
 				)
 			);
 
 			$wp_customize->add_setting(
-				'ucf_events_use_rich_snippets',
+				self::$option_prefix . 'use_rich_snippets',
 				array(
 					'type'    => 'option',
-					'default' => self::$default_options['use_rich_snippets']
+					'default' => self::$option_defaults['use_rich_snippets']
 				)
 			);
 			$wp_customize->add_control(
-				'ucf_events_use_rich_snippets',
+				self::$option_prefix . 'use_rich_snippets',
 				array(
 					'type'        => 'checkbox',
 					'label'       => 'Use rich snippets',
 					'description' => 'Include rich snippet data for displayed events. <a target="_blank" href="https://developers.google.com/search/docs/guides/intro-structured-data">More info</a>',
-					'section'     => 'ucf_events_plugin_settings'
+					'section'     => self::$option_prefix . 'plugin_settings'
 				)
 			);
 		}
@@ -86,7 +87,7 @@ if ( !class_exists( 'UCF_Events_Config' ) ) {
 				'classic' => 'Classic Layout',
 			);
 
-			$layouts = apply_filters( 'ucf_events_get_layouts', $layouts );
+			$layouts = apply_filters( self::$option_prefix . 'get_layouts', $layouts );
 
 			return $layouts;
 		}
@@ -97,18 +98,19 @@ if ( !class_exists( 'UCF_Events_Config' ) ) {
 		 *
 		 * @return array
 		 **/
-		public static function get_default_options() {
-			$defaults = self::$default_options;
+		public static function get_option_defaults() {
+			$defaults = self::$option_defaults;
 
 			// Apply default values configurable within the customizer:
 			$customizer_defaults = array(
-				'feed_url'          => get_option( 'ucf_events_feed_url' ),
-				'include_css'       => get_option( 'ucf_events_include_css' ),
-				'use_rich_snippets' => get_option( 'ucf_events_use_rich_snippets' )
+				'feed_url'          => get_option( self::$option_prefix . 'feed_url' ),
+				'include_css'       => get_option( self::$option_prefix . 'include_css' ),
+				'use_rich_snippets' => get_option( self::$option_prefix . 'use_rich_snippets' )
 			);
 
 			$customizer_defaults = self::format_options( $customizer_defaults );
 
+			// Force customizer options to override $defaults, even if they are empty:
 			$defaults = array_merge( $defaults, $customizer_defaults );
 
 			return $defaults;
@@ -122,8 +124,8 @@ if ( !class_exists( 'UCF_Events_Config' ) ) {
 		 *                                values present in $list.
 		 * @return array
 		 **/
-		public static function apply_default_options( $list, $list_keys_only=false ) {
-			$defaults = self::get_default_options();
+		public static function apply_option_defaults( $list, $list_keys_only=false ) {
+			$defaults = self::get_option_defaults();
 			$options = array();
 
 			if ( $list_keys_only ) {
@@ -163,6 +165,26 @@ if ( !class_exists( 'UCF_Events_Config' ) ) {
 			}
 
 			return $list;
+		}
+
+		/**
+		 * Convenience method for returning an option from the WP Options API
+		 * or a plugin option default.
+		 *
+		 * @param $option_name
+		 * @return mixed
+		 **/
+		public static function get_option_or_default( $option_name ) {
+			// Handle $option_name passed in with or without self::$option_prefix applied:
+			$option_name_no_prefix = str_replace( self::$option_prefix, '', $option_name );
+			$option_name = self::$option_prefix . $option_name_no_prefix;
+
+			$option = get_option( $option_name );
+			$option_formatted = self::apply_option_defaults( array(
+				$option_name_no_prefix => $option
+			), true );
+
+			return $option_formatted[$option_name_no_prefix];
 		}
 	}
 

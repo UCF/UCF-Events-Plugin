@@ -6,7 +6,7 @@
 if ( !function_exists( 'sc_ucf_events' ) ) {
 
 	function sc_ucf_events( $atts, $content='' ) {
-		$defaults = UCF_Events_Config::get_default_options();
+		$defaults = UCF_Events_Config::get_option_defaults();
 
 		// NOTE: some attributes in $atts may have no effect within the shortcode.
 		$atts = shortcode_atts( $defaults, $atts, 'sc_ucf_events' );
@@ -30,7 +30,7 @@ if ( class_exists( 'UCF_Modular_Shortcode' ) && !class_exists( 'UCF_Events_Short
 
 		function params() {
 			$layouts = UCF_Events_Config::get_layouts();
-			$defaults = UCF_Events_Config::get_default_options();
+			$defaults = UCF_Events_Config::get_option_defaults();
 
 			return array(
 				array(
