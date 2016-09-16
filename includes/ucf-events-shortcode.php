@@ -69,7 +69,6 @@ if ( class_exists( 'UCF_Modular_Shortcode' ) && !class_exists( 'UCF_Events_Short
 					'type'      => 'number',
 					'default'   => $defaults['offset']
 				)
-				// TODO other args?
 			);
 		}
 	}

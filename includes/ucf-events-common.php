@@ -33,6 +33,7 @@ if ( !class_exists( 'UCF_Events_Common' ) ) {
 if ( !function_exists( 'ucf_events_display_classic_before' ) ) {
 
 	function ucf_events_display_classic_before( $items, $title, $display_type ) {
+		// TODO unique filters for displaying display_type-specific titles
 		ob_start();
 	?>
 		<div class="ucf-events ucf-events-classic">

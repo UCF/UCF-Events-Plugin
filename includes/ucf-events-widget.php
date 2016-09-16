@@ -48,7 +48,6 @@ if ( !class_exists( 'UCF_Events_Widget' ) ) {
 			$limit     = $options['limit'];
 			$layout    = $options['layout'];
 			$offset    = $options['offset'];
-			// TODO other args?
 	?>
 			<p>
 				<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php echo __( 'Title' ); ?>:</label>
