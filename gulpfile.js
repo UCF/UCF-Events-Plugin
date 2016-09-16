@@ -7,6 +7,7 @@ var gulp = require('gulp'),
     scsslint = require('gulp-scss-lint'),
     autoprefixer = require('gulp-autoprefixer'),
     cleanCSS = require('gulp-clean-css'),
+    readme = require('gulp-readme-to-markdown'),
     browserSync = require('browser-sync').create();
 
 var configDefault = {
@@ -38,6 +39,17 @@ gulp.task('css-main', function() {
 });
 
 
+// Create a Github-flavored markdown file from the plugin readme.txt
+gulp.task('readme', function() {
+  gulp.src(['readme.txt'])
+    .pipe(readme({
+      details: false,
+      screenshot_ext: [],
+    }))
+    .pipe(gulp.dest('.'));
+});
+
+
 // All css-related tasks
 gulp.task('css', ['scss-lint', 'css-main']);
 
@@ -53,7 +65,8 @@ gulp.task('watch', function() {
 
   gulp.watch(config.scssPath + '/**/*.scss', ['css']).on('change', browserSync.reload);
   gulp.watch('./**/*.php').on('change', browserSync.reload);
+  gulp.watch('readme.txt', ['readme']);
 });
 
 // Default task
-gulp.task('default', ['css']);
+gulp.task('default', ['css', 'readme']);

@@ -1,14 +1,21 @@
-# UCF Events Plugin #
+=== UCF Events Plugin ===
+Contributors: ucfwebcom
+Tags: ucf, events
+Requires at least: 4.5.3
+Tested up to: 4.5.3
+Stable tag: 1.0
+License: GPLv3 or later
+License URI: http://www.gnu.org/copyleft/gpl-3.0.html
 
 Provides a shortcode, widget, functions, and default styles for displaying UCF events.
 
 
-## Description ##
+== Description ==
 
 TODO
 
 
-## Installation ##
+== Installation ==
 
 TODO
 
@@ -17,29 +24,33 @@ TODO
 3. Configure plugin settings from the WordPress admin under "TODO"
 
 
-## Frequently Asked Questions ##
+== Frequently Asked Questions ==
 
-### A question that someone might have ###
+= A question that someone might have =
 
 An answer to that question.
 
-### What about foo bar? ###
+= What about foo bar? =
 
 Answer to foo bar dilemma.
 
 
+== Screenshots ==
 
-## Changelog ##
+TODO
 
-### 1.0 ###
+
+== Changelog ==
+
+= 1.0 =
 * Initial release
 
 
-## Upgrade Notice ##
+== Upgrade Notice ==
 
 n/a
 
 
-## Arbitrary section ##
+== Arbitrary section ==
 
 TODO
