@@ -15,7 +15,7 @@ if ( !class_exists( 'UCF_Events_Feed' ) ) {
 
 			if ( $items === false ) {
 				// Fetch new degree data
-				$response = wp_remote_get( $feed_url, array( 'timeout' => 15 ) );
+				$response = wp_safe_remote_get( $feed_url, array( 'timeout' => 15 ) );
 
 				if ( is_array( $response ) ) {
 					$items = json_decode( wp_remote_retrieve_body( $response ) );
