@@ -27,6 +27,7 @@ add_action( 'plugins_loaded', function() {
 
 	if ( class_exists( 'UCF_Modular_Shortcode' ) ) {
 		// TODO register shortcode interface class here
+		return;
 	}
 
 } );
