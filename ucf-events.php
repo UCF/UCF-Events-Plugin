@@ -21,6 +21,10 @@ add_action( 'plugins_loaded', function() {
 	require_once 'includes/ucf-events-shortcode.php';
 	require_once 'includes/ucf-events-widget.php';
 
+	// Register actions
+	add_action( 'admin_init', array( 'UCF_Events_Config', 'settings_init' ) );
+	add_action( 'admin_menu', array( 'UCF_Events_Config', 'add_options_page' ) );
+
 	if ( class_exists( 'UCF_Modular_Shortcode' ) ) {
 		// TODO register shortcode interface class here
 	}

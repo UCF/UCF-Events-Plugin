@@ -3,8 +3,6 @@
  * Handles plugin configuration
  */
 
-// TODO move to custom options page in admin
-
 if ( !class_exists( 'UCF_Events_Config' ) ) {
 
 	class UCF_Events_Config {
@@ -18,87 +16,7 @@ if ( !class_exists( 'UCF_Events_Config' ) ) {
 				'offset'               => 0,
 				'include_css'          => true,
 				'transient_expiration' => 3,  // hours
-				'use_rich_snippets'    => false  // TODO implement this (currently does nothing)
 			);
-
-		public static function ucf_events_add_customizer_sections( $wp_customize ) {
-			$wp_customize->add_section(
-				self::$option_prefix . 'plugin_settings',
-				array(
-					'title' => 'UCF Events Plugin Settings'
-				)
-			);
-		}
-
-		public static function ucf_events_add_customizer_settings( $wp_customize ) {
-			$wp_customize->add_setting(
-				self::$option_prefix . 'feed_url',
-				array(
-					'type'    => 'option',
-					'default' => self::$option_defaults['feed_url']
-				)
-			);
-			$wp_customize->add_control(
-				self::$option_prefix . 'feed_url',
-				array(
-					'type'        => 'text',
-					'label'       => 'UCF Events JSON Feed URL',
-					'description' => 'The default URL to use for event feeds from events.ucf.edu.',
-					'section'     => self::$option_prefix . 'plugin_settings'
-				)
-			);
-
-			$wp_customize->add_setting(
-				self::$option_prefix . 'include_css',
-				array(
-					'type'    => 'option',
-					'default' => self::$option_defaults['include_css']
-				)
-			);
-			$wp_customize->add_control(
-				self::$option_prefix . 'include_css',
-				array(
-					'type'        => 'checkbox',
-					'label'       => 'Include Default CSS',
-					'description' => 'Include the default css stylesheet for event results within the theme.<br>Leave this checkbox checked unless your theme provides custom styles for event results.',
-					'section'     => self::$option_prefix . 'plugin_settings'
-				)
-			);
-
-			$wp_customize->add_setting(
-				self::$option_prefix . 'use_rich_snippets',
-				array(
-					'type'    => 'option',
-					'default' => self::$option_defaults['use_rich_snippets']
-				)
-			);
-			$wp_customize->add_control(
-				self::$option_prefix . 'use_rich_snippets',
-				array(
-					'type'        => 'checkbox',
-					'label'       => 'Use rich snippets',
-					'description' => 'Include rich snippet data for displayed events. <a target="_blank" href="https://developers.google.com/search/docs/guides/intro-structured-data">More info</a>',
-					'section'     => self::$option_prefix . 'plugin_settings'
-				)
-			);
-
-			$wp_customize->add_setting(
-				self::$option_prefix . 'transient_expiration',
-				array(
-					'type'    => 'option',
-					'default' => self::$option_defaults['transient_expiration']
-				)
-			);
-			$wp_customize->add_control(
-				self::$option_prefix . 'transient_expiration',
-				array(
-					'type'        => 'text',
-					'label'       => 'Transient data expiration',
-					'description' => 'The length of time, in hours, event data should be cached before fresh data is fetched. Updates to this value will not take effect until after any existing transient events data expires.',
-					'section'     => self::$option_prefix . 'plugin_settings'
-				)
-			);
-		}
 
 		public static function get_layouts() {
 			$layouts = array(
@@ -112,25 +30,24 @@ if ( !class_exists( 'UCF_Events_Config' ) ) {
 
 		/**
 		 * Returns a list of default plugin options. Applies any overridden
-		 * default values set within the customizer.
+		 * default values set within the options page.
 		 *
 		 * @return array
 		 **/
 		public static function get_option_defaults() {
 			$defaults = self::$option_defaults;
 
-			// Apply default values configurable within the customizer:
-			$customizer_defaults = array(
+			// Apply default values configurable within the options page:
+			$configurable_defaults = array(
 				'feed_url'             => get_option( self::$option_prefix . 'feed_url' ),
 				'include_css'          => get_option( self::$option_prefix . 'include_css' ),
-				'use_rich_snippets'    => get_option( self::$option_prefix . 'use_rich_snippets' ),
 				'transient_expiration' => get_option( self::$option_prefix . 'transient_expiration' )
 			);
 
-			$customizer_defaults = self::format_options( $customizer_defaults );
+			$configurable_defaults = self::format_options( $configurable_defaults );
 
-			// Force customizer options to override $defaults, even if they are empty:
-			$defaults = array_merge( $defaults, $customizer_defaults );
+			// Force configurable options to override $defaults, even if they are empty:
+			$defaults = array_merge( $defaults, $configurable_defaults );
 
 			return $defaults;
 		}
@@ -178,7 +95,6 @@ if ( !class_exists( 'UCF_Events_Config' ) ) {
 						$list[$key] = floatval( $val );
 						break;
 					case 'include_css':
-					case 'use_rich_snippets':
 						$list[$key] = filter_var( $val, FILTER_VALIDATE_BOOLEAN );
 						break;
 					default:
@@ -208,9 +124,157 @@ if ( !class_exists( 'UCF_Events_Config' ) ) {
 
 			return $option_formatted[$option_name_no_prefix];
 		}
-	}
 
-	add_action( 'customize_register', array( 'UCF_Events_Config', 'ucf_events_add_customizer_sections' ) );
-	add_action( 'customize_register', array( 'UCF_Events_Config', 'ucf_events_add_customizer_settings' ) );
+		/**
+		 * Initializes setting registration with the Settings API.
+		 **/
+		public static function settings_init() {
+			// Register settings
+			register_setting( 'ucf_events', self::$option_prefix . 'feed_url' );
+			register_setting( 'ucf_events', self::$option_prefix . 'include_css' );
+			register_setting( 'ucf_events', self::$option_prefix . 'transient_expiration' );
+
+			// Register setting sections
+			add_settings_section(
+				'ucf_events_section_general', // option section slug
+				'General Settings', // formatted title
+				'', // callback that echoes any content at the top of the section
+				'ucf_events' // settings page slug
+			);
+
+			// Register fields
+			add_settings_field(
+				self::$option_prefix . 'feed_url',
+				'UCF Events JSON Feed URL',  // formatted field title
+				array( 'UCF_Events_Config', 'display_settings_field' ), // display callback
+				'ucf_events',  // settings page slug
+				'ucf_events_section_general',  // option section slug
+				array(  // extra arguments to pass to the callback function
+					'label_for'   => self::$option_prefix . 'feed_url',
+					'description' => 'The default URL to use for event feeds from events.ucf.edu.',
+					'type'        => 'text'
+				)
+			);
+			add_settings_field(
+				self::$option_prefix . 'include_css',
+				'Include Default CSS',  // formatted field title
+				array( 'UCF_Events_Config', 'display_settings_field' ),  // display callback
+				'ucf_events',  // settings page slug
+				'ucf_events_section_general',  // option section slug
+				array(  // extra arguments to pass to the callback function
+					'label_for'   => self::$option_prefix . 'include_css',
+					'description' => 'Include the default css stylesheet for event results within the theme.<br>Leave this checkbox checked unless your theme provides custom styles for event results.',
+					'type'        => 'checkbox'
+				)
+			);
+			add_settings_field(
+				self::$option_prefix . 'transient_expiration',
+				'Transient Data Expiration',  // formatted field title
+				array( 'UCF_Events_Config', 'display_settings_field' ),  // display callback
+				'ucf_events',  // settings page slug
+				'ucf_events_section_general',  // option section slug
+				array(  // extra arguments to pass to the callback function
+					'label_for'   => self::$option_prefix . 'transient_expiration',
+					'description' => 'The length of time, in hours, event data should be cached before fresh data is fetched. Updates to this value will not take effect until after any existing transient events data expires.',
+					'type'        => 'number'
+				)
+			);
+		}
+
+		/**
+		 * Displays an individual setting's field markup.
+		 **/
+		public static function display_settings_field( $args ) {
+			$option_name   = $args['label_for'];
+			$description   = $args['description'];
+			$field_type    = $args['type'];
+			$current_value = self::get_option_or_default( $option_name );
+			$markup        = '';
+
+			switch ( $field_type ) {
+				case 'checkbox':
+					ob_start();
+				?>
+					<input type="checkbox" id="<?php echo $option_name; ?>" name="<?php echo $option_name; ?>" <?php echo ( $current_value == true ) ? 'checked' : ''; ?>>
+					<p class="description">
+						<?php echo $description; ?>
+					</p>
+				<?php
+					$markup = ob_get_clean();
+					break;
+
+				case 'number':
+					ob_start();
+				?>
+					<input type="number" id="<?php echo $option_name; ?>" name="<?php echo $option_name; ?>" value="<?php echo $current_value; ?>">
+					<p class="description">
+						<?php echo $description; ?>
+					</p>
+				<?php
+					$markup = ob_get_clean();
+					break;
+
+				case 'text':
+				default:
+					ob_start();
+				?>
+					<input type="text" id="<?php echo $option_name; ?>" name="<?php echo $option_name; ?>" value="<?php echo $current_value; ?>">
+					<p class="description">
+						<?php echo $description; ?>
+					</p>
+				<?php
+					$markup = ob_get_clean();
+					break;
+			}
+		?>
+
+		<?php
+			echo $markup;
+		}
+
+
+		/**
+		 * Registers the settings page to display in the WordPress admin.
+		 **/
+		public static function add_options_page() {
+			$page_title = 'UCF Events Settings';
+			$menu_title = 'UCF Events';
+			$capability = 'manage_options';
+			$menu_slug  = 'ucf_events';
+			$callback   = array( 'UCF_Events_Config', 'options_page_html' );
+
+			return add_options_page(
+				$page_title,
+				$menu_title,
+				$capability,
+				$menu_slug,
+				$callback
+			);
+		}
+
+
+		/**
+		 * Displays the plugin's settings page form.
+		 **/
+		public static function options_page_html() {
+			ob_start();
+		?>
+
+		<div class="wrap">
+			<h1><?php echo get_admin_page_title(); ?></h1>
+			<form method="post" action="options.php">
+				<?php
+				settings_fields( 'ucf_events' );
+				do_settings_sections( 'ucf_events' );
+				submit_button();
+				?>
+			</form>
+		</div>
+
+		<?php
+			echo ob_get_clean();
+		}
+
+	}
 
 }

@@ -43,7 +43,7 @@ if ( class_exists( 'UCF_Modular_Shortcode' ) && !class_exists( 'UCF_Events_Short
 				array(
 					'name'      => 'Feed URL',
 					'id'        => 'title',
-					'help_text' => 'The URL from which feed data will be fetched from events.ucf.edu. Defaults to the Feed URL set in the WordPress Customizer.',
+					'help_text' => 'The URL from which feed data will be fetched from events.ucf.edu. Defaults to the Feed URL set in the plugin options page.',
 					'type'      => 'text',
 					'default'   => $defaults['feed_url']
 				),
