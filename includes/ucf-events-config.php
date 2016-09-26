@@ -29,6 +29,32 @@ if ( !class_exists( 'UCF_Events_Config' ) ) {
 		}
 
 		/**
+		 * Creates options via the WP Options API that are utilized by the
+		 * plugin.  Intended to be run on plugin activation.
+		 *
+		 * @return void
+		 **/
+		public static function add_options() {
+			$defaults = self::$option_defaults; // don't use self::get_option_defaults() here (default options haven't been set yet)
+
+			add_option( self::$option_prefix . 'feed_url', $defaults['feed_url'] );
+			add_option( self::$option_prefix . 'include_css', $defaults['include_css'] );
+			add_option( self::$option_prefix . 'transient_expiration', $defaults['transient_expiration'] );
+		}
+
+		/**
+		 * Deletes options via the WP Options API that are utilized by the
+		 * plugin.  Intended to be run on plugin uninstallation.
+		 *
+		 * @return void
+		 **/
+		public static function delete_options() {
+			delete_option( self::$option_prefix . 'feed_url' );
+			delete_option( self::$option_prefix . 'include_css' );
+			delete_option( self::$option_prefix . 'transient_expiration' );
+		}
+
+		/**
 		 * Returns a list of default plugin options. Applies any overridden
 		 * default values set within the options page.
 		 *
@@ -276,5 +302,8 @@ if ( !class_exists( 'UCF_Events_Config' ) ) {
 		}
 
 	}
+
+	add_action( 'admin_init', array( 'UCF_Events_Config', 'settings_init' ) );
+	add_action( 'admin_menu', array( 'UCF_Events_Config', 'add_options_page' ) );
 
 }

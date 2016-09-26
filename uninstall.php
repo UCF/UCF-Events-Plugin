@@ -2,6 +2,12 @@
 /**
  * Handles uninstallation logic.
  **/
+if ( !defined( 'WP_UNINSTALL_PLUGIN' ) ) {
+    die;
+}
 
 
-// TODO anything to put here?
+require_once 'includes/ucf-events-config.php';
+
+// Delete options
+UCF_Events_Config::delete_options();

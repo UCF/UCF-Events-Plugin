@@ -10,7 +10,7 @@ if ( !class_exists( 'UCF_Events_Common' ) ) {
 			$include_css = UCF_Events_Config::get_option_or_default( 'include_css' );
 
 			if ( $include_css ) {
-				wp_enqueue_style( 'ucf_events_css', plugins_url( 'static/css/ucf-events.min.css', UCF_EVENTS__PLUGIN_DIR ), false, false, 'all' );
+				wp_enqueue_style( 'ucf_events_css', plugins_url( 'static/css/ucf-events.min.css', UCF_EVENTS__PLUGIN_FILE ), false, false, 'all' );
 			}
 
 			if ( has_action( 'ucf_events_display_' . $layout . '_before' ) ) {

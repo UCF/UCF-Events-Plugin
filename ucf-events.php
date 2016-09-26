@@ -11,19 +11,38 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 
+define( 'UCF_EVENTS__PLUGIN_FILE', __FILE__ );
+
+require_once 'includes/ucf-events-config.php';
+require_once 'includes/ucf-events-feed.php';
+require_once 'includes/ucf-events-common.php';
+require_once 'includes/ucf-events-shortcode.php';
+require_once 'includes/ucf-events-widget.php';
+
+
+/**
+ * Activation/deactivation hooks
+ **/
+if ( !function_exists( 'ucf_events_plugin_activation' ) ) {
+	function ucf_events_plugin_activation() {
+		return UCF_Events_Config::add_options();
+	}
+}
+
+if ( !function_exists( 'ucf_events_plugin_deactivation' ) ) {
+	function ucf_events_plugin_deactivation() {
+		return;
+	}
+}
+
+register_activation_hook( UCF_EVENTS__PLUGIN_FILE, 'ucf_events_plugin_activation' );
+register_activation_hook( UCF_EVENTS__PLUGIN_FILE, 'ucf_events_plugin_deactivation' );
+
+
+/**
+ * Plugin-dependent actions:
+ **/
 add_action( 'plugins_loaded', function() {
-
-	define( 'UCF_EVENTS__PLUGIN_DIR', __FILE__ );
-
-	require_once 'includes/ucf-events-config.php';
-	require_once 'includes/ucf-events-feed.php';
-	require_once 'includes/ucf-events-common.php';
-	require_once 'includes/ucf-events-shortcode.php';
-	require_once 'includes/ucf-events-widget.php';
-
-	// Register actions
-	add_action( 'admin_init', array( 'UCF_Events_Config', 'settings_init' ) );
-	add_action( 'admin_menu', array( 'UCF_Events_Config', 'add_options_page' ) );
 
 	if ( class_exists( 'UCF_Modular_Shortcode' ) ) {
 		// TODO register shortcode interface class here
