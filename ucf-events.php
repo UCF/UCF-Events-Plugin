@@ -36,7 +36,7 @@ if ( !function_exists( 'ucf_events_plugin_deactivation' ) ) {
 }
 
 register_activation_hook( UCF_EVENTS__PLUGIN_FILE, 'ucf_events_plugin_activation' );
-register_activation_hook( UCF_EVENTS__PLUGIN_FILE, 'ucf_events_plugin_deactivation' );
+register_deactivation_hook( UCF_EVENTS__PLUGIN_FILE, 'ucf_events_plugin_deactivation' );
 
 
 /**
