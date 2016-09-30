@@ -22,7 +22,7 @@ This plugin provides a shortcode, widget, helper functions, and default styles f
 
 ## Changelog ##
 
-### 1.0 ###
+### 1.0.0 ###
 * Initial release
 
 
