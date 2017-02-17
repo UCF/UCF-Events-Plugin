@@ -27,7 +27,6 @@ if ( !class_exists( 'UCF_Events_Common' ) ) {
 	}
 }
 
-
 if ( !function_exists( 'ucf_events_display_classic_before' ) ) {
 
 	function ucf_events_display_classic_before( $items, $title, $display_type ) {
@@ -67,6 +66,7 @@ if ( !function_exists( 'ucf_events_display_classic_title' ) ) {
 if ( !function_exists( 'ucf_events_display_classic' ) ) {
 
 	function ucf_events_display_classic( $items, $title ) {
+		if ( ! is_array( $items ) ) { $items = array( $items ); }
 		ob_start();
 	?>
 		<div class="ucf-events-list">
