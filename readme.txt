@@ -3,7 +3,7 @@ Contributors: ucfwebcom
 Tags: ucf, events
 Requires at least: 4.5.3
 Tested up to: 4.5.3
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/copyleft/gpl-3.0.html
 
@@ -28,6 +28,11 @@ This plugin provides a shortcode, widget, helper functions, and default styles f
 
 
 == Changelog ==
+
+= 1.0.1 =
+* Bug Fixes:
+  * Updated style enqueue logic to always enqueue, instead of being dependent on the widget or shortcode being on a page.
+  * Corrected problem with do_action dereferencing arrays with a single index. Account for this dereference in callbacks.
 
 = 1.0.0 =
 * Initial release

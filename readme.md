@@ -22,6 +22,11 @@ This plugin provides a shortcode, widget, helper functions, and default styles f
 
 ## Changelog ##
 
+### 1.0.1 ###
+* Bug Fixes:
+  * Updated style enqueue logic to always enqueue, instead of being dependent on the widget or shortcode being on a page.
+  * Corrected problem with do_action dereferencing arrays with a single index. Account for this dereference in callbacks.
+
 ### 1.0.0 ###
 * Initial release
 
