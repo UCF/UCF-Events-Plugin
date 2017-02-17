@@ -7,11 +7,6 @@ if ( !class_exists( 'UCF_Events_Common' ) ) {
 
 	class UCF_Events_Common {
 		public function display_events( $items, $layout, $title, $display_type='default' ) {
-			$include_css = UCF_Events_Config::get_option_or_default( 'include_css' );
-
-			if ( $include_css ) {
-				wp_enqueue_style( 'ucf_events_css', plugins_url( 'static/css/ucf-events.min.css', UCF_EVENTS__PLUGIN_FILE ), false, false, 'all' );
-			}
 
 			if ( has_action( 'ucf_events_display_' . $layout . '_before' ) ) {
 				do_action( 'ucf_events_display_' . $layout . '_before', $items, $title, $display_type );
@@ -30,7 +25,6 @@ if ( !class_exists( 'UCF_Events_Common' ) ) {
 			}
 		}
 	}
-
 }
 
 
@@ -134,4 +128,16 @@ if ( !function_exists( 'ucf_events_display_classic_after' ) ) {
 
 	add_action( 'ucf_events_display_classic_after', 'ucf_events_display_classic_after', 10, 3 );
 
+}
+
+if ( ! function_exists( 'ucf_events_enqueue_assets' ) ) {
+	function ucf_events_enqueue_assets() {
+		$include_css = UCF_Events_Config::get_option_or_default( 'include_css' );
+
+		if ( $include_css ) {
+			wp_enqueue_style( 'ucf_events_css', plugins_url( 'static/css/ucf-events.min.css', UCF_EVENTS__PLUGIN_FILE ), false, false, 'all' );
+		}
+	}
+
+	add_action( 'wp_enqueue_scripts', 'ucf_events_enqueue_assets' );
 }
