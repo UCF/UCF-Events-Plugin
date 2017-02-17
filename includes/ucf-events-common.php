@@ -35,8 +35,6 @@ if ( !class_exists( 'UCF_Events_Common' ) ) {
 if ( !function_exists( 'ucf_events_display_classic_before' ) ) {
 
 	function ucf_events_display_classic_before( $items, $title, $display_type ) {
-		if ( ! is_array( $items ) ) { $items = array( $items ); }
-
 		ob_start();
 	?>
 		<div class="ucf-events ucf-events-classic">
@@ -51,7 +49,6 @@ if ( !function_exists( 'ucf_events_display_classic_before' ) ) {
 if ( !function_exists( 'ucf_events_display_classic_title' ) ) {
 
 	function ucf_events_display_classic_title( $items, $title, $display_type ) {
-		if ( ! is_array( $items ) ) { $items = array( $items ); }
 		$formatted_title = $title;
 
 		switch ( $display_type ) {
@@ -127,7 +124,6 @@ if ( !function_exists( 'ucf_events_display_classic' ) ) {
 if ( !function_exists( 'ucf_events_display_classic_after' ) ) {
 
 	function ucf_events_display_classic_after( $items, $title ) {
-		if ( ! is_array( $items ) ) { $items = array( $items ); }
 		ob_start();
 	?>
 		</div>
