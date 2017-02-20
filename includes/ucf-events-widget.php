@@ -37,7 +37,7 @@ if ( !class_exists( 'UCF_Events_Widget' ) ) {
 
 			echo $args['after_widget'];
 
-			echo ob_get_clean();
+			echo ob_get_clean(); // Widget must *echo*!  Do not return the result!
 		}
 
 		public function form( $instance ) {
