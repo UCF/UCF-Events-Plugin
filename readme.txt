@@ -29,6 +29,10 @@ This plugin provides a shortcode, widget, helper functions, and default styles f
 
 == Changelog ==
 
+= 1.0.2 =
+* Bug Fixes:
+  * Whitelists the hostname from the default `feed_url` option to make sure `wp_safe_remote_get` does not mark calls to the host as unsafe.
+
 = 1.0.1 =
 * Bug Fixes:
   * Updated style enqueue logic to always enqueue, instead of being dependent on the widget or shortcode being on a page.
