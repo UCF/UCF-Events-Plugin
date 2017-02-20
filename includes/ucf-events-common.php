@@ -141,3 +141,17 @@ if ( ! function_exists( 'ucf_events_enqueue_assets' ) ) {
 
 	add_action( 'wp_enqueue_scripts', 'ucf_events_enqueue_assets' );
 }
+
+if ( ! function_exists( 'ucf_events_whitelist_host' ) ) {
+	function ucf_events_whitelist_host( $allow, $host, $url ) {
+		$default_url = UCF_Events_Config::get_option_or_default( 'feed_url' );
+		$default_host = parse_url( $default_url, PHP_URL_HOST );
+		if ( $default_host === $host ) {
+			$allow = true;
+		}
+
+		return $allow;
+	}
+
+	add_filter( 'http_request_host_is_external', 'ucf_events_whitelist_host', 10, 3 );
+}
