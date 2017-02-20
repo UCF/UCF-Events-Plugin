@@ -29,6 +29,10 @@ This plugin provides a shortcode, widget, helper functions, and default styles f
 
 == Changelog ==
 
+= 1.0.3 =
+* Bug Fixes:
+  * Fixed `[ucf-events]` shortcode to return its output instead of echo it; fixes output buffer issues with shortcode contents.
+
 = 1.0.2 =
 * Bug Fixes:
   * Whitelists the hostname from the default `feed_url` option to make sure `wp_safe_remote_get` does not mark calls to the host as unsafe.
