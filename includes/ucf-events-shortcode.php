@@ -24,58 +24,50 @@ if ( !function_exists( 'sc_ucf_events' ) ) {
 
 }
 
-
-if ( class_exists( 'UCF_Modular_Shortcode' ) && !class_exists( 'UCF_Events_Shortcode' ) ) {
-
-	class UCF_Events_Shortcode extends UCF_Modular_Shortcode {
-		public
-			$name        = 'UCF Events Feed',
-			$command     = 'ucf-events-feed',
-			$description = 'Displays a events feed pulled from events.ucf.edu';
-
-		function params() {
-			$layouts = UCF_Events_Config::get_layouts();
-			$defaults = UCF_Events_Config::get_option_defaults();
-
-			return array(
+if ( ! function_exists( 'ucf_events_shortcode_interface' ) ) {
+	function ucf_events_shortcode_interface( $shortcodes ) {
+		$settings = array(
+			'command' => 'ucf-events',
+			'name'    => 'UCF Event List',
+			'desc'    => 'Displays a list of events.',
+			'content' => false,
+			'fields'  => array(
 				array(
-					'name'      => 'Title',
-					'id'        => 'title',
-					'help_text' => 'The title to display before the events feed.',
-					'type'      => 'text',
-					'default'   => $defaults['title']
+					'param'    => 'title',
+					'name'     => 'Title',
+					'desc'     => 'The title to display above the events list.',
+					'type'     => 'text'
 				),
 				array(
-					'name'      => 'Feed URL',
-					'id'        => 'title',
-					'help_text' => 'The URL from which feed data will be fetched from events.ucf.edu. Defaults to the Feed URL set in the plugin options page.',
-					'type'      => 'text',
-					'default'   => $defaults['feed_url']
+					'param'    => 'layout',
+					'name'     => 'Layout',
+					'desc'     => 'The layout used to display the events.',
+					'type'     => 'select',
+					'options'  => UCF_Events_Config::get_layouts()
 				),
 				array(
-					'name'      => 'Layout',
-					'id'        => 'layout',
-					'help_text' => 'The layout to use to display the events items.',
-					'type'      => 'dropdown',
-					'choices'   => $layouts,
-					'default'   => $defaults['layout']
+					'param'    => 'feed_url',
+					'name'     => 'Feed URL',
+					'desc'     => 'The url to fetch the events from.',
+					'type'     => 'text'
 				),
 				array(
-					'name'      => 'Number of Events',
-					'id'        => 'limit',
-					'help_text' => 'The number of events to show.',
-					'type'      => 'number',
-					'default'   => $defaults['limit']
+					'param'    => 'limit',
+					'name'     => 'Limit',
+					'desc'     => 'The number of events to show.',
+					'type'     => 'text'
 				),
 				array(
-					'name'      => 'Offset Event Results',
-					'id'        => 'offset',
-					'help_text' => 'The number of event results that should be skipped. e.g., to skip the first event in the returned results, set the offset to "1".',
-					'type'      => 'number',
-					'default'   => $defaults['offset']
+					'param'    => 'offset',
+					'name'     => 'Offset',
+					'desc'     => 'The number of events to skip.',
+					'type'     => 'text'
 				)
-			);
-		}
-	}
+			)
+		);
 
+		$shortcodes[] = $settings;
+
+		return $shortcodes;
+	}
 }
