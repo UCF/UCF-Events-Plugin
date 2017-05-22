@@ -130,6 +130,102 @@ if ( !function_exists( 'ucf_events_display_classic_after' ) ) {
 
 }
 
+if ( !function_exists( 'ucf_events_display_modern_before' ) ) {
+
+	function ucf_events_display_modern_before( $items, $title, $display_type ) {
+		ob_start();
+	?>
+		<div class="ucf-events ucf-events-modern">
+	<?php
+		echo ob_get_clean();
+	}
+
+	add_action( 'ucf_events_display_modern_before', 'ucf_events_display_modern_before', 10, 3 );
+
+}
+
+if ( !function_exists( 'ucf_events_display_modern_title' ) ) {
+
+	function ucf_events_display_modern_title( $items, $title, $display_type ) {
+		$formatted_title = $title;
+
+		switch ( $display_type ) {
+			case 'widget':
+				// title is already formatted at the widget level
+				break;
+			case 'default':
+			default:
+				$formatted_title = '<h2 class="ucf-events-title h4 text-uppercase mb-4">' . $title . '</h2>';
+				break;
+		}
+
+		echo $formatted_title;
+	}
+
+	add_action( 'ucf_events_display_modern_title', 'ucf_events_display_modern_title', 10, 3 );
+
+}
+
+if ( !function_exists( 'ucf_events_display_modern' ) ) {
+
+	function ucf_events_display_modern( $items, $title ) {
+		if ( ! is_array( $items ) ) { $items = array( $items ); }
+		ob_start();
+	?>
+		<div class="ucf-events-list">
+
+		<?php if ( $items ): ?>
+			<?php
+			foreach( $items as $event ) :
+				$starts = new DateTime( $event->starts );
+			?>
+			<div class="ucf-event ucf-event-row mb-4">
+				<div class="ucf-event-when h5 text-uppercase text-primary font-weight-bold">
+					<time class="ucf-event-start-datetime" datetime="<?php echo $starts->format( 'c' ); ?>">
+						<span class="ucf-event-start-date"><?php echo $starts->format( 'M j' ); ?></span>
+						<span class="ucf-event-start-time"><?php echo $starts->format( 'g:i a' ); ?></span>
+					</time>
+				</div>
+				<div class="ucf-event-title-wrapper">
+					<a class="ucf-event-title text-inverse font-weight-bold" href="<?php echo $event->url; ?>">
+						<?php echo $event->title; ?>
+					</a>
+				</div>
+				<div class="ucf-event-location-wrapper">
+					<a class="ucf-event-location text-inverse" href="<?php echo $event->location_url; ?>">
+						<?php echo $event->location; ?>
+					</a>
+				</div>
+			</div>
+			<?php endforeach; ?>
+
+		<?php else: ?>
+			<span class="ucf-events-error">No events found.</span>
+		<?php endif; ?>
+
+		</div>
+	<?php
+		echo ob_get_clean();
+	}
+
+	add_action( 'ucf_events_display_modern', 'ucf_events_display_modern', 10, 3 );
+
+}
+
+if ( !function_exists( 'ucf_events_display_modern_after' ) ) {
+
+	function ucf_events_display_modern_after( $items, $title ) {
+		ob_start();
+	?>
+		</div>
+	<?php
+		echo ob_get_clean();
+	}
+
+	add_action( 'ucf_events_display_modern_after', 'ucf_events_display_modern_after', 10, 3 );
+
+}
+
 if ( ! function_exists( 'ucf_events_enqueue_assets' ) ) {
 	function ucf_events_enqueue_assets() {
 		$include_css = UCF_Events_Config::get_option_or_default( 'include_css' );

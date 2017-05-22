@@ -1,0 +1,35 @@
+.ucf-events-modern {
+
+  // Athena Classes
+  .mb-3 {
+    margin-bottom: 1rem;
+  }
+
+  .mb-4 {
+    margin-bottom: 1.5rem;
+  }
+
+  .font-weight-bold {
+    font-weight: 700;
+  }
+
+  .h4 {
+    font-size: 1.5rem;
+  }
+
+  .h5 {
+    font-size: 1.25rem;
+  }
+
+  .text-inverse {
+    color: $white;
+  }
+
+  .text-primary {
+    color: $ucf-gold;
+  }
+
+  .text-uppercase {
+    text-transform: uppercase;
+  }
+}
