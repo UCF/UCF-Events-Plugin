@@ -176,11 +176,10 @@ if ( !function_exists( 'ucf_events_display_modern' ) ) {
 
 		<?php if ( $items ): ?>
 			<?php
-			$numItems = count( $items );
-			$i = 0;
-			foreach( $items as $event ) :
+			$num_items = count( $items ) - 1;
+			foreach( $items as $i => $event ) :
 				$starts = new DateTime( $event->starts );
-				$margin = ( ++$i === $numItems ) ? "" : "mb-4";
+				$margin = ( $i === $num_items ) ? "" : "mb-4";
 			?>
 			<div class="ucf-event ucf-event-row <?php echo $margin ?>">
 				<div class="ucf-event-when h5 text-uppercase text-primary font-weight-bold">
