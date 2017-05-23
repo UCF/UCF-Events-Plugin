@@ -176,17 +176,20 @@ if ( !function_exists( 'ucf_events_display_modern' ) ) {
 
 		<?php if ( $items ): ?>
 			<?php
+			$numItems = count( $items );
+			$i = 0;
 			foreach( $items as $event ) :
 				$starts = new DateTime( $event->starts );
+				$margin = ( ++$i === $numItems ) ? "" : "mb-4";
 			?>
-			<div class="ucf-event ucf-event-row mb-4">
+			<div class="ucf-event ucf-event-row <?php echo $margin ?>">
 				<div class="ucf-event-when h5 text-uppercase text-primary font-weight-bold">
 					<time class="ucf-event-start-datetime" datetime="<?php echo $starts->format( 'c' ); ?>">
 						<span class="ucf-event-start-date"><?php echo $starts->format( 'M j' ); ?></span>
 						<span class="ucf-event-start-time"><?php echo $starts->format( 'g:i a' ); ?></span>
 					</time>
 				</div>
-				<div class="ucf-event-title-wrapper">
+				<div class="ucf-event-title-wrapper mb-1">
 					<a class="ucf-event-title text-inverse font-weight-bold" href="<?php echo $event->url; ?>">
 						<?php echo $event->title; ?>
 					</a>
