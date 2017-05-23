@@ -179,22 +179,22 @@ if ( !function_exists( 'ucf_events_display_modern' ) ) {
 			$num_items = count( $items ) - 1;
 			foreach( $items as $i => $event ) :
 				$starts = new DateTime( $event->starts );
-				$margin = ( $i === $num_items ) ? "" : "mb-4";
+				$margin = ( $i === $num_items ) ? "" : " ucf-event-row-margin";
 			?>
-			<div class="ucf-event ucf-event-row <?php echo $margin ?>">
-				<div class="ucf-event-when h5 text-uppercase text-primary font-weight-bold">
+			<div class="ucf-event ucf-event-row<?php echo $margin ?>">
+				<div class="ucf-event-when">
 					<time class="ucf-event-start-datetime" datetime="<?php echo $starts->format( 'c' ); ?>">
 						<span class="ucf-event-start-date"><?php echo $starts->format( 'M j' ); ?></span>
 						<span class="ucf-event-start-time"><?php echo $starts->format( 'g:i a' ); ?></span>
 					</time>
 				</div>
-				<div class="ucf-event-title-wrapper mb-1">
-					<a class="ucf-event-title text-inverse font-weight-bold" href="<?php echo $event->url; ?>">
+				<div class="ucf-event-title-wrapper">
+					<a class="ucf-event-title" href="<?php echo $event->url; ?>">
 						<?php echo $event->title; ?>
 					</a>
 				</div>
 				<div class="ucf-event-location-wrapper">
-					<a class="ucf-event-location text-inverse" href="<?php echo $event->location_url; ?>">
+					<a class="ucf-event-location" href="<?php echo $event->location_url; ?>">
 						<?php echo $event->location; ?>
 					</a>
 				</div>
