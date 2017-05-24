@@ -31,6 +31,7 @@ if ( ! function_exists( 'ucf_events_shortcode_interface' ) ) {
 			'name'    => 'UCF Event List',
 			'desc'    => 'Displays a list of events.',
 			'content' => false,
+			'preview' => true,
 			'fields'  => array(
 				array(
 					'param'    => 'title',
@@ -69,5 +70,12 @@ if ( ! function_exists( 'ucf_events_shortcode_interface' ) ) {
 		$shortcodes[] = $settings;
 
 		return $shortcodes;
+	}
+}
+
+if ( ! function_exists( 'ucf_events_shortcode_interface_styles' ) ) {
+	function ucf_events_shortcode_interface_styles( $stylesheets ) {
+		$stylesheets[] = plugins_url( 'static/css/ucf-events.min.css', UCF_EVENTS__PLUGIN_FILE );
+		return $stylesheets;
 	}
 }
