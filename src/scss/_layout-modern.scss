@@ -1,0 +1,31 @@
+.ucf-events-modern {
+
+  .ucf-event-row-margin {
+    margin-bottom: 1.5rem;
+  }
+
+  .ucf-event-when {
+    color: $ucf-gold;
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .ucf-event-title-wrapper {
+    margin-bottom: .25rem;
+  }
+
+  .ucf-event-title {
+    color: $white;
+    font-weight: 700;
+  }
+
+  .ucf-event-location {
+    color: $white;
+  }
+
+  .ucf-events-error {
+    color: $white;
+    font-weight: 700;
+  }
+}
