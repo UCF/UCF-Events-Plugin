@@ -44,8 +44,9 @@ register_deactivation_hook( UCF_EVENTS__PLUGIN_FILE, 'ucf_events_plugin_deactiva
  **/
 add_action( 'plugins_loaded', function() {
 
-	if ( is_plugin_active( 'WP-Shortcode-Interface/wp-shortcode-interface.php' ) ) {
-		add_filter( 'wp_scif_add_shortcode', 'ucf_events_shortcode_interface', 10, 1 );
+	if ( function_exists( 'shortcode_ui_register_for_shortcode' ) ) {
+		add_filter( 'init', 'ucf_events_shortcode_interface', 10, 1 );
+		add_action( 'admin_init', 'ucf_events_wysiwyg_styles', 10, 0 );
 	}
 
 } );

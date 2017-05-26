@@ -18,12 +18,30 @@ if ( !class_exists( 'UCF_Events_Config' ) ) {
 				'transient_expiration' => 3,  // hours
 			);
 
-		public static function get_layouts() {
+		/**
+		 * Gets the available layouts
+		 * @author Jim Barnes
+		 * @since 1.0.0
+		 * @return Array
+		 **/
+		public static function get_layouts( $format='ARRAY' ) {
 			$layouts = array(
 				'classic' => 'Classic Layout',
 			);
 
 			$layouts = apply_filters( self::$option_prefix . 'get_layouts', $layouts );
+
+			if ( $format === 'ARRAY_A' ) {
+				$a_array = array();
+				foreach( $layouts as $value=>$label ) {
+					$a_array[] = array(
+						'label' => $label,
+						'value' => $value
+					);
+				}
+
+				return $a_array;
+			}
 
 			return $layouts;
 		}

@@ -26,48 +26,59 @@ if ( !function_exists( 'sc_ucf_events' ) ) {
 
 if ( ! function_exists( 'ucf_events_shortcode_interface' ) ) {
 	function ucf_events_shortcode_interface( $shortcodes ) {
-		$settings = array(
-			'command' => 'ucf-events',
-			'name'    => 'UCF Event List',
-			'desc'    => 'Displays a list of events.',
-			'content' => false,
-			'fields'  => array(
-				array(
-					'param'    => 'title',
-					'name'     => 'Title',
-					'desc'     => 'The title to display above the events list.',
-					'type'     => 'text'
-				),
-				array(
-					'param'    => 'layout',
-					'name'     => 'Layout',
-					'desc'     => 'The layout used to display the events.',
-					'type'     => 'select',
-					'options'  => UCF_Events_Config::get_layouts()
-				),
-				array(
-					'param'    => 'feed_url',
-					'name'     => 'Feed URL',
-					'desc'     => 'The url to fetch the events from.',
-					'type'     => 'text'
-				),
-				array(
-					'param'    => 'limit',
-					'name'     => 'Limit',
-					'desc'     => 'The number of events to show.',
-					'type'     => 'text'
-				),
-				array(
-					'param'    => 'offset',
-					'name'     => 'Offset',
-					'desc'     => 'The number of events to skip.',
-					'type'     => 'text'
+		$fields = array(
+			array(
+				'label'       => 'Title',
+				'attr'        => 'title',
+				'description' => 'The title to display above the events list.',
+				'encode'      => false,
+				'type'        => 'text'
+			),
+			array(
+				'label'       => 'Layout',
+				'attr'        => 'layout',
+				'description' => 'The layout used to display the events.',
+				'type'        => 'select',
+				'options'     => UCF_Events_Config::get_layouts('ARRAY_A')
+			),
+			array(
+				'label'       => 'Feed URL',
+				'attr'        => 'feed_url',
+				'description' => 'The url to fetch the events from.',
+				'type'        => 'url',
+				'meta'        => array(
+					'placeholder' => 'https://events.ucf.edu/upcoming/feed.json'
 				)
+			),
+			array(
+				'label'       => 'Limit',
+				'attr'        => 'limit',
+				'description' => 'The number of events to display.',
+				'type'        => 'number'
+			),
+			array(
+				'label'       => 'Offset',
+				'attr'        => 'offset',
+				'description' => 'The number of events to skip.',
+				'type'        => 'number'
 			)
 		);
 
-		$shortcodes[] = $settings;
+		$args = array(
+			'label'         => 'UCF Event List',
+			'listItemImage' => 'dashicons-calendar',
+			'inner_content' => false,
+			'attrs'         => $fields
+		);
 
-		return $shortcodes;
+		shortcode_ui_register_for_shortcode( 'ucf-events', $args );
+	}
+}
+
+if ( ! function_exists( 'ucf_events_wysiwyg_styles' ) ) {
+	function ucf_events_wysiwyg_styles() {
+		if ( UCF_Events_Config::get_option_or_default( 'include_css' ) ) {
+			add_editor_style( plugins_url( 'static/css/ucf-events.min.css', UCF_EVENTS__PLUGIN_FILE ) );
+		}
 	}
 }
