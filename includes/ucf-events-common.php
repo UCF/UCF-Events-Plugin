@@ -193,10 +193,14 @@ if ( !function_exists( 'ucf_events_display_modern' ) ) {
 						<?php echo $event->title; ?>
 					</a>
 				</div>
-				<div class="ucf-event-location-wrapper">
-					<a class="ucf-event-location" href="<?php echo $event->location_url; ?>">
-						<?php echo $event->location; ?>
-					</a>
+				<div class="ucf-event-description-wrapper">
+					<?php
+						if( mb_strlen( $event_description = $event->description ) > $count = 250 ) {
+							echo substr( $event_description, 0, $count ) . "&hellip;";
+						} else {
+							echo $event_description;
+						}
+					?>
 				</div>
 			</div>
 			<?php endforeach; ?>
