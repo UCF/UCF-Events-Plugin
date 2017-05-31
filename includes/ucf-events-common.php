@@ -195,7 +195,7 @@ if ( !function_exists( 'ucf_events_display_modern' ) ) {
 				</div>
 				<div class="ucf-event-description-wrapper">
 					<?php
-						if( mb_strlen( $event_description = $event->description ) > $count = 250 ) {
+						if( strlen( $event_description = $event->description ) > $count = 250 ) {
 							echo substr( $event_description, 0, $count ) . "&hellip;";
 						} else {
 							echo $event_description;
