@@ -181,7 +181,7 @@ if ( !function_exists( 'ucf_events_display_modern' ) ) {
 				$starts = new DateTime( $event->starts );
 				$margin = ( $i === $num_items ) ? "" : " ucf-event-row-margin";
 			?>
-			<div class="ucf-event ucf-event-row<?php echo $margin ?>">
+			<div class="ucf-event ucf-event-row<?php echo $margin; ?>">
 				<div class="ucf-event-when">
 					<time class="ucf-event-start-datetime" datetime="<?php echo $starts->format( 'c' ); ?>">
 						<span class="ucf-event-start-date"><?php echo $starts->format( 'M j' ); ?></span>
