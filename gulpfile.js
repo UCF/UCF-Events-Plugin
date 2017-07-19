@@ -2,7 +2,6 @@ var gulp = require('gulp'),
     configLocal = require('./gulp-config.json'),
     merge = require('merge'),
     sass = require('gulp-sass'),
-    bless = require('gulp-bless'),
     rename = require('gulp-rename'),
     scsslint = require('gulp-scss-lint'),
     autoprefixer = require('gulp-autoprefixer'),
@@ -23,7 +22,7 @@ gulp.task('scss-lint', function() {
     .pipe(scsslint());
 });
 
-// Compile + bless primary scss files
+// Compile primary scss files
 gulp.task('css-main', function() {
   gulp.src(config.scssPath + '/ucf-events.scss')
     .pipe(sass().on('error', sass.logError))
@@ -33,7 +32,6 @@ gulp.task('css-main', function() {
     }))
     .pipe(cleanCSS({compatibility: 'ie9'}))
     .pipe(rename('ucf-events.min.css'))
-    .pipe(bless())
     .pipe(gulp.dest(config.cssPath))
     .pipe(browserSync.stream());
 });
@@ -63,7 +61,7 @@ gulp.task('watch', function() {
     });
   }
 
-  gulp.watch(config.scssPath + '/**/*.scss', ['css']).on('change', browserSync.reload);
+  gulp.watch(config.scssPath + '/**/*.scss', ['css']);
   gulp.watch('./**/*.php').on('change', browserSync.reload);
   gulp.watch('readme.txt', ['readme']);
 });
