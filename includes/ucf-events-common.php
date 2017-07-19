@@ -155,7 +155,7 @@ if ( !function_exists( 'ucf_events_display_modern_title' ) ) {
 				break;
 			case 'default':
 			default:
-				$formatted_title = '<h2 class="ucf-events-title h4 text-uppercase mb-4">' . $title . '</h2>';
+				$formatted_title = '<h2 class="ucf-events-title">' . $title . '</h2>';
 				break;
 		}
 
