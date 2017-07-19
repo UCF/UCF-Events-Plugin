@@ -3,7 +3,7 @@ Contributors: ucfwebcom
 Tags: ucf, events
 Requires at least: 4.5.3
 Tested up to: 4.5.3
-Stable tag: 1.0.3
+Stable tag: 1.0.4
 License: GPLv3 or later
 License URI: http://www.gnu.org/copyleft/gpl-3.0.html
 
@@ -28,6 +28,10 @@ This plugin provides a shortcode, widget, helper functions, and default styles f
 
 
 == Changelog ==
+
+= 1.0.4 =
+* Bug Fixes:
+  * Added modern layout.
 
 = 1.0.3 =
 * Bug Fixes:
