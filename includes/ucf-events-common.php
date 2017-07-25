@@ -6,7 +6,7 @@
 if ( !class_exists( 'UCF_Events_Common' ) ) {
 
 	class UCF_Events_Common {
-		public function display_events( $items, $layout, $title, $display_type='default' ) {
+		public static function display_events( $items, $layout, $title, $display_type='default' ) {
 
 			if ( has_action( 'ucf_events_display_' . $layout . '_before' ) ) {
 				do_action( 'ucf_events_display_' . $layout . '_before', $items, $title, $display_type );
