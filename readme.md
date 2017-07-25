@@ -24,6 +24,12 @@ This plugin provides a shortcode, widget, helper functions, and default styles f
 
 ### 1.0.4 ###
 * Bug Fixes:
+  * Fixed `display_events()` in `UCF_Events_Common` not being set as a static method
+  * Updated `UCF_Events_Common::display_events()` to return its output
+  * Added false-y check for `$items` in `ucf_events_display_classic()` to help prevent looping through non-items.
+
+### 1.0.4 ###
+* Enhancements:
   * Added modern layout.
 
 ### 1.0.3 ###

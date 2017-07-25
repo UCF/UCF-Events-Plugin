@@ -3,7 +3,7 @@ Contributors: ucfwebcom
 Tags: ucf, events
 Requires at least: 4.5.3
 Tested up to: 4.5.3
-Stable tag: 1.0.4
+Stable tag: 1.0.5
 License: GPLv3 or later
 License URI: http://www.gnu.org/copyleft/gpl-3.0.html
 
@@ -31,6 +31,12 @@ This plugin provides a shortcode, widget, helper functions, and default styles f
 
 = 1.0.4 =
 * Bug Fixes:
+  * Fixed `display_events()` in `UCF_Events_Common` not being set as a static method
+  * Updated `UCF_Events_Common::display_events()` to return its output
+  * Added false-y check for `$items` in `ucf_events_display_classic()` to help prevent looping through non-items.
+
+= 1.0.4 =
+* Enhancements:
   * Added modern layout.
 
 = 1.0.3 =
