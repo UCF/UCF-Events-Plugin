@@ -6,7 +6,8 @@
 if ( !class_exists( 'UCF_Events_Common' ) ) {
 
 	class UCF_Events_Common {
-		public function display_events( $items, $layout, $title, $display_type='default' ) {
+		public static function display_events( $items, $layout, $title, $display_type='default' ) {
+			ob_start();
 
 			if ( has_action( 'ucf_events_display_' . $layout . '_before' ) ) {
 				do_action( 'ucf_events_display_' . $layout . '_before', $items, $title, $display_type );
@@ -23,6 +24,8 @@ if ( !class_exists( 'UCF_Events_Common' ) ) {
 			if ( has_action( 'ucf_events_display_' . $layout . '_after' ) ) {
 				do_action( 'ucf_events_display_' . $layout . '_after', $items, $title, $display_type );
 			}
+
+			return ob_get_clean();
 		}
 	}
 }
@@ -66,7 +69,7 @@ if ( !function_exists( 'ucf_events_display_classic_title' ) ) {
 if ( !function_exists( 'ucf_events_display_classic' ) ) {
 
 	function ucf_events_display_classic( $items, $title ) {
-		if ( ! is_array( $items ) ) { $items = array( $items ); }
+		if ( $items && ! is_array( $items ) ) { $items = array( $items ); }
 		ob_start();
 	?>
 		<div class="ucf-events-list">
