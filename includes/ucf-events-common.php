@@ -197,13 +197,7 @@ if ( !function_exists( 'ucf_events_display_modern' ) ) {
 					</a>
 				</div>
 				<div class="ucf-event-description-wrapper">
-					<?php
-						if( strlen( $event_description = $event->description ) > $count = 250 ) {
-							echo substr( $event_description, 0, $count ) . "&hellip;";
-						} else {
-							echo $event_description;
-						}
-					?>
+					<?php echo wp_trim_words( $event->description, 55, '&hellip;' ); ?>
 				</div>
 			</div>
 			<?php endforeach; ?>
