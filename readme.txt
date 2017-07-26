@@ -3,7 +3,7 @@ Contributors: ucfwebcom
 Tags: ucf, events
 Requires at least: 4.5.3
 Tested up to: 4.5.3
-Stable tag: 1.0.5
+Stable tag: 1.0.6
 License: GPLv3 or later
 License URI: http://www.gnu.org/copyleft/gpl-3.0.html
 
@@ -29,7 +29,11 @@ This plugin provides a shortcode, widget, helper functions, and default styles f
 
 == Changelog ==
 
-= 1.0.4 =
+= 1.0.6 =
+* Bug Fixes:
+  * Fixed bug in modern layout that could cause broken HTML in event descriptions.
+
+= 1.0.5 =
 * Bug Fixes:
   * Fixed `display_events()` in `UCF_Events_Common` not being set as a static method
   * Updated `UCF_Events_Common::display_events()` to return its output

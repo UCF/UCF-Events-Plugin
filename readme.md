@@ -22,7 +22,11 @@ This plugin provides a shortcode, widget, helper functions, and default styles f
 
 ## Changelog ##
 
-### 1.0.4 ###
+### 1.0.6 ###
+* Bug Fixes:
+  * Fixed bug in modern layout that could cause broken HTML in event descriptions.
+
+### 1.0.5 ###
 * Bug Fixes:
   * Fixed `display_events()` in `UCF_Events_Common` not being set as a static method
   * Updated `UCF_Events_Common::display_events()` to return its output
