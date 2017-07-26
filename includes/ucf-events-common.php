@@ -197,7 +197,7 @@ if ( !function_exists( 'ucf_events_display_modern' ) ) {
 					</a>
 				</div>
 				<div class="ucf-event-description-wrapper">
-					<?php echo wp_trim_words( $event->description, 55, '&hellip;' ); ?>
+					<?php echo wp_trim_words( $event->description, 40, '&hellip;' ); ?>
 				</div>
 			</div>
 			<?php endforeach; ?>
