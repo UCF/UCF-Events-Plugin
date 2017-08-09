@@ -6,24 +6,36 @@
 if ( !class_exists( 'UCF_Events_Common' ) ) {
 
 	class UCF_Events_Common {
-		public static function display_events( $items, $layout, $title, $display_type='default' ) {
+		public static function display_events( $items, $layout, $args, $display_type='default' ) {
 			ob_start();
 
-			if ( has_action( 'ucf_events_display_' . $layout . '_before' ) ) {
-				do_action( 'ucf_events_display_' . $layout . '_before', $items, $title, $display_type );
+			// Before
+			$layout_before = ucf_events_display_classic_before( '', $items, $args, $display_type );
+			if ( has_filter( 'ucf_events_display_' . $layout . '_before' ) ) {
+				$layout_before = apply_filters( 'ucf_events_display_' . $layout . '_before', $layout_before, $items, $args, $display_type );
 			}
+			echo $layout_before;
 
-			if ( has_action( 'ucf_events_display_' . $layout . '_title' ) ) {
-				do_action( 'ucf_events_display_' . $layout . '_title', $items, $title, $display_type );
+			// Title
+			$layout_title = ucf_events_display_classic_title( '', $items, $args, $display_type );
+			if ( has_filter( 'ucf_events_display_' . $layout . '_title' ) ) {
+				$layout_title = apply_filters( 'ucf_events_display_' . $layout . '_title', $layout_title, $items, $args, $display_type );
 			}
+			echo $layout_title;
 
-			if ( has_action( 'ucf_events_display_' . $layout  ) ) {
-				do_action( 'ucf_events_display_' . $layout, $items, $title, $display_type );
+			// Main content/loop
+			$layout_content = ucf_events_display_classic( '', $items, $args, $display_type );
+			if ( has_filter( 'ucf_events_display_' . $layout ) ) {
+				$layout_content = apply_filters( 'ucf_events_display_' . $layout, $layout_content, $items, $args, $display_type );
 			}
+			echo $layout_content;
 
-			if ( has_action( 'ucf_events_display_' . $layout . '_after' ) ) {
-				do_action( 'ucf_events_display_' . $layout . '_after', $items, $title, $display_type );
+			// After
+			$layout_after = ucf_events_display_classic_after( '', $items, $args, $display_type );
+			if ( has_filter( 'ucf_events_display_' . $layout . '_after' ) ) {
+				$layout_after = apply_filters( 'ucf_events_display_' . $layout . '_after', $layout_after, $items, $args, $display_type );
 			}
+			echo $layout_after;
 
 			return ob_get_clean();
 		}
@@ -32,43 +44,44 @@ if ( !class_exists( 'UCF_Events_Common' ) ) {
 
 if ( !function_exists( 'ucf_events_display_classic_before' ) ) {
 
-	function ucf_events_display_classic_before( $items, $title, $display_type ) {
+	function ucf_events_display_classic_before( $content, $items, $args, $display_type ) {
 		ob_start();
 	?>
 		<div class="ucf-events ucf-events-classic">
 	<?php
-		echo ob_get_clean();
+		return ob_get_clean();
 	}
 
-	add_action( 'ucf_events_display_classic_before', 'ucf_events_display_classic_before', 10, 3 );
+	add_filter( 'ucf_events_display_classic_before', 'ucf_events_display_classic_before', 10, 4 );
 
 }
 
 if ( !function_exists( 'ucf_events_display_classic_title' ) ) {
 
-	function ucf_events_display_classic_title( $items, $title, $display_type ) {
-		$formatted_title = $title;
+	function ucf_events_display_classic_title( $content, $items, $args, $display_type ) {
+		$formatted_title = $args['title'];
 
-		switch ( $display_type ) {
+		switch( $display_type ) {
 			case 'widget':
-				// title is already formatted at the widget level
 				break;
 			case 'default':
 			default:
-				$formatted_title = '<h2 class="ucf-events-title">' . $title . '</h2>';
+				if ( $formatted_title ) {
+					$formatted_title = '<h2 class="ucf-events-title">' . $formatted_title . '</h2>';
+				}
 				break;
 		}
 
-		echo $formatted_title;
+		return $formatted_title;
 	}
 
-	add_action( 'ucf_events_display_classic_title', 'ucf_events_display_classic_title', 10, 3 );
+	add_filter( 'ucf_events_display_classic_title', 'ucf_events_display_classic_title', 10, 4 );
 
 }
 
 if ( !function_exists( 'ucf_events_display_classic' ) ) {
 
-	function ucf_events_display_classic( $items, $title ) {
+	function ucf_events_display_classic( $content, $items, $args, $display_type ) {
 		if ( $items && ! is_array( $items ) ) { $items = array( $items ); }
 		ob_start();
 	?>
@@ -112,66 +125,67 @@ if ( !function_exists( 'ucf_events_display_classic' ) ) {
 
 		</div>
 	<?php
-		echo ob_get_clean();
+		return ob_get_clean();
 	}
 
-	add_action( 'ucf_events_display_classic', 'ucf_events_display_classic', 10, 3 );
+	add_filter( 'ucf_events_display_classic', 'ucf_events_display_classic', 10, 4 );
 
 }
 
 if ( !function_exists( 'ucf_events_display_classic_after' ) ) {
 
-	function ucf_events_display_classic_after( $items, $title ) {
+	function ucf_events_display_classic_after( $content, $items, $args, $display_type ) {
 		ob_start();
 	?>
 		</div>
 	<?php
-		echo ob_get_clean();
+		return ob_get_clean();
 	}
 
-	add_action( 'ucf_events_display_classic_after', 'ucf_events_display_classic_after', 10, 3 );
+	add_filter( 'ucf_events_display_classic_after', 'ucf_events_display_classic_after', 10, 4 );
 
 }
 
 if ( !function_exists( 'ucf_events_display_modern_before' ) ) {
 
-	function ucf_events_display_modern_before( $items, $title, $display_type ) {
+	function ucf_events_display_modern_before( $content, $items, $args, $display_type ) {
 		ob_start();
 	?>
 		<div class="ucf-events ucf-events-modern">
 	<?php
-		echo ob_get_clean();
+		return ob_get_clean();
 	}
 
-	add_action( 'ucf_events_display_modern_before', 'ucf_events_display_modern_before', 10, 3 );
+	add_filter( 'ucf_events_display_modern_before', 'ucf_events_display_modern_before', 10, 4 );
 
 }
 
 if ( !function_exists( 'ucf_events_display_modern_title' ) ) {
 
-	function ucf_events_display_modern_title( $items, $title, $display_type ) {
-		$formatted_title = $title;
+	function ucf_events_display_modern_title( $content, $items, $args, $display_type ) {
+		$formatted_title = $args['title'];
 
-		switch ( $display_type ) {
+		switch( $display_type ) {
 			case 'widget':
-				// title is already formatted at the widget level
 				break;
 			case 'default':
 			default:
-				$formatted_title = '<h2 class="ucf-events-title">' . $title . '</h2>';
+				if ( $formatted_title ) {
+					$formatted_title = '<h2 class="ucf-events-title">' . $formatted_title . '</h2>';
+				}
 				break;
 		}
 
-		echo $formatted_title;
+		return $formatted_title;
 	}
 
-	add_action( 'ucf_events_display_modern_title', 'ucf_events_display_modern_title', 10, 3 );
+	add_filter( 'ucf_events_display_modern_title', 'ucf_events_display_modern_title', 10, 4 );
 
 }
 
 if ( !function_exists( 'ucf_events_display_modern' ) ) {
 
-	function ucf_events_display_modern( $items, $title ) {
+	function ucf_events_display_modern( $content, $items, $args, $display_type ) {
 		if ( ! is_array( $items ) ) { $items = array( $items ); }
 		ob_start();
 	?>
@@ -208,24 +222,24 @@ if ( !function_exists( 'ucf_events_display_modern' ) ) {
 
 		</div>
 	<?php
-		echo ob_get_clean();
+		return ob_get_clean();
 	}
 
-	add_action( 'ucf_events_display_modern', 'ucf_events_display_modern', 10, 3 );
+	add_filter( 'ucf_events_display_modern', 'ucf_events_display_modern', 10, 4 );
 
 }
 
 if ( !function_exists( 'ucf_events_display_modern_after' ) ) {
 
-	function ucf_events_display_modern_after( $items, $title ) {
+	function ucf_events_display_modern_after( $content, $items, $args, $display_type ) {
 		ob_start();
 	?>
 		</div>
 	<?php
-		echo ob_get_clean();
+		return ob_get_clean();
 	}
 
-	add_action( 'ucf_events_display_modern_after', 'ucf_events_display_modern_after', 10, 3 );
+	add_filter( 'ucf_events_display_modern_after', 'ucf_events_display_modern_after', 10, 4 );
 
 }
 
