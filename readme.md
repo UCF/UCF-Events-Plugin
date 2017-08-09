@@ -22,6 +22,10 @@ This plugin provides a shortcode, widget, helper functions, and default styles f
 
 ## Changelog ##
 
+### 2.0.0 ###
+* Enhancements:
+  * Updated layout hooks to use filters instead of actions.  Please note this change is not backward-compatible with layouts registered using hooks provided by older versions of the plugin.
+
 ### 1.0.6 ###
 * Bug Fixes:
   * Fixed bug in modern layout that could cause broken HTML in event descriptions.
