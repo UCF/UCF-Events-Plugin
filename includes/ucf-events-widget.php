@@ -33,7 +33,7 @@ if ( !class_exists( 'UCF_Events_Widget' ) ) {
 
 			echo $args['before_widget'];
 
-			UCF_Events_Common::display_events( $items, $options['layout'], $title, 'widget' );
+			UCF_Events_Common::display_events( $items, $options['layout'], array_merge( $options, array( 'title' => $title ) ), 'widget' );
 
 			echo $args['after_widget'];
 
