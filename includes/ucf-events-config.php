@@ -20,8 +20,9 @@ if ( !class_exists( 'UCF_Events_Config' ) ) {
 
 		public static function get_layouts() {
 			$layouts = array(
-				'classic' => 'Classic Layout',
-				'modern'  => 'Modern Layout'
+				'classic'       => 'Classic Layout',
+				'modern'        => 'Modern Layout',
+				'modern_nodesc' => 'Modern Layout, No Event Descriptions'
 			);
 
 			$layouts = apply_filters( self::$option_prefix . 'get_layouts', $layouts );
