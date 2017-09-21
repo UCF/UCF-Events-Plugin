@@ -186,7 +186,7 @@ if ( !function_exists( 'ucf_events_display_modern_title' ) ) {
 if ( !function_exists( 'ucf_events_display_modern' ) ) {
 
 	function ucf_events_display_modern( $content, $items, $args, $display_type ) {
-		if ( ! is_array( $items ) ) { $items = array( $items ); }
+		if ( $items && ! is_array( $items ) ) { $items = array( $items ); }
 		ob_start();
 	?>
 		<div class="ucf-events-list">
