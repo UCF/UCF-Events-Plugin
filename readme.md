@@ -22,6 +22,13 @@ This plugin provides a shortcode, widget, helper functions, and default styles f
 
 ## Changelog ##
 
+### 2.0.1 ###
+* Bug Fixes:
+  * Fixed notices that could occur when `UCF_Events_Feed::get_events` returns null when using the modern layout
+
+* Enhancements:
+  * Added new `modern_nodesc` layout, which is identical to the existing `modern` layout but excludes event descriptions.
+
 ### 2.0.0 ###
 * Enhancements:
   * Updated layout hooks to use filters instead of actions.  Please note this change is not backward-compatible with layouts registered using hooks provided by older versions of the plugin.

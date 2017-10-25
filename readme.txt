@@ -3,7 +3,7 @@ Contributors: ucfwebcom
 Tags: ucf, events
 Requires at least: 4.5.3
 Tested up to: 4.5.3
-Stable tag: 2.0.0
+Stable tag: 2.0.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/copyleft/gpl-3.0.html
 
@@ -28,6 +28,13 @@ This plugin provides a shortcode, widget, helper functions, and default styles f
 
 
 == Changelog ==
+
+= 2.0.1 =
+* Bug Fixes:
+  * Fixed notices that could occur when `UCF_Events_Feed::get_events` returns null when using the modern layout
+
+* Enhancements:
+  * Added new `modern_nodesc` layout, which is identical to the existing `modern` layout but excludes event descriptions.
 
 = 2.0.0 =
 * Enhancements:
