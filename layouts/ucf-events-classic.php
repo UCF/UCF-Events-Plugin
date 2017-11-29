@@ -42,7 +42,7 @@ if ( !function_exists( 'ucf_events_display_classic_title' ) ) {
 
 if ( !function_exists( 'ucf_events_display_classic' ) ) {
 
-	function ucf_events_display_classic( $content, $items, $args, $display_type ) {
+	function ucf_events_display_classic( $content, $items, $args, $display_type, $fallback_message='' ) {
 		if ( $items && ! is_array( $items ) ) { $items = array( $items ); }
 		ob_start();
 	?>
@@ -81,7 +81,7 @@ if ( !function_exists( 'ucf_events_display_classic' ) ) {
 			<?php endforeach; ?>
 
 		<?php else: ?>
-			<span class="ucf-events-error">No events found.</span>
+			<span class="ucf-events-error"><?php echo $fallback_message; ?></span>
 		<?php endif; ?>
 
 		</div>
@@ -89,7 +89,7 @@ if ( !function_exists( 'ucf_events_display_classic' ) ) {
 		return ob_get_clean();
 	}
 
-	add_filter( 'ucf_events_display_classic', 'ucf_events_display_classic', 10, 4 );
+	add_filter( 'ucf_events_display_classic', 'ucf_events_display_classic', 10, 5 );
 
 }
 
