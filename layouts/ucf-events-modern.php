@@ -125,7 +125,7 @@ add_filter( 'ucf_events_display_modern_nodesc_title', 'ucf_events_display_modern
 // Modern No Desc. - main loop
 if ( !function_exists( 'ucf_events_display_modern_nodesc' ) ) {
 
-	function ucf_events_display_modern_nodesc( $content, $items, $args, $display_type ) {
+	function ucf_events_display_modern_nodesc( $content, $items, $args, $display_type, $fallback_message='' ) {
 		if ( ! is_array( $items ) ) { $items = array( $items ); }
 		ob_start();
 	?>
@@ -154,7 +154,7 @@ if ( !function_exists( 'ucf_events_display_modern_nodesc' ) ) {
 			<?php endforeach; ?>
 
 		<?php else: ?>
-			<span class="ucf-events-error">No events found.</span>
+			<span class="ucf-events-error"><?php echo $fallback_message; ?></span>
 		<?php endif; ?>
 
 		</div>
@@ -162,7 +162,7 @@ if ( !function_exists( 'ucf_events_display_modern_nodesc' ) ) {
 		return ob_get_clean();
 	}
 
-	add_filter( 'ucf_events_display_modern_nodesc', 'ucf_events_display_modern_nodesc', 10, 4 );
+	add_filter( 'ucf_events_display_modern_nodesc', 'ucf_events_display_modern_nodesc', 10, 5 );
 
 }
 
