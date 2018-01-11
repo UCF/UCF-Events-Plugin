@@ -3,7 +3,7 @@ Contributors: ucfwebcom
 Tags: ucf, events
 Requires at least: 4.5.3
 Tested up to: 4.5.3
-Stable tag: 2.1.0
+Stable tag: 2.1.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/copyleft/gpl-3.0.html
 
@@ -28,6 +28,10 @@ This plugin provides a shortcode, widget, helper functions, and default styles f
 
 
 == Changelog ==
+
+= 2.1.1 =
+* Bug Fixes:
+  * Removed `is_plugin_active()` check in `ucf-events.php` and replaced with `class_exists()` check to prevent errors when `wp-admin/includes/plugin.php` is not loaded.
 
 = 2.1.0 =
 * Enhancements:

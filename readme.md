@@ -22,6 +22,10 @@ This plugin provides a shortcode, widget, helper functions, and default styles f
 
 ## Changelog ##
 
+### 2.1.1 ###
+* Bug Fixes:
+  * Removed `is_plugin_active()` check in `ucf-events.php` and replaced with `class_exists()` check to prevent errors when `wp-admin/includes/plugin.php` is not loaded.
+
 ### 2.1.0 ###
 * Enhancements:
   * Added `$fallback_message` parameter to allow a no results message to be customized. Add the message by inserting it in between the opening and closing shortcodes (the content area), i.e. `[ucf-news-feed]<insert message here>[/ucf-news-feed]`.
