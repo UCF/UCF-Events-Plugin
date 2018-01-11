@@ -16,7 +16,7 @@ if ( !function_exists( 'sc_ucf_events' ) ) {
 
 		ob_start();
 
-		echo UCF_Events_Common::display_events( $items, $atts['layout'], $atts, 'shortcode' );
+		echo UCF_Events_Common::display_events( $items, $atts['layout'], $atts, 'shortcode', $content );
 
 		return ob_get_clean(); // Shortcode must *return*!  Do not echo the result!
 	}

@@ -3,7 +3,7 @@ Contributors: ucfwebcom
 Tags: ucf, events
 Requires at least: 4.5.3
 Tested up to: 4.5.3
-Stable tag: 2.0.1
+Stable tag: 2.1.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/copyleft/gpl-3.0.html
 
@@ -28,6 +28,10 @@ This plugin provides a shortcode, widget, helper functions, and default styles f
 
 
 == Changelog ==
+
+= 2.1.0 =
+* Enhancements:
+  * Added `$fallback_message` parameter to allow a no results message to be customized. Add the message by inserting it in between the opening and closing shortcodes (the content area), i.e. `[ucf-news-feed]<insert message here>[/ucf-news-feed]`.
 
 = 2.0.1 =
 * Bug Fixes:

@@ -22,6 +22,10 @@ This plugin provides a shortcode, widget, helper functions, and default styles f
 
 ## Changelog ##
 
+### 2.1.0 ###
+* Enhancements:
+  * Added `$fallback_message` parameter to allow a no results message to be customized. Add the message by inserting it in between the opening and closing shortcodes (the content area), i.e. `[ucf-news-feed]<insert message here>[/ucf-news-feed]`.
+
 ### 2.0.1 ###
 * Bug Fixes:
   * Fixed notices that could occur when `UCF_Events_Feed::get_events` returns null when using the modern layout

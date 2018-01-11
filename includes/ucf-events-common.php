@@ -6,7 +6,7 @@
 if ( !class_exists( 'UCF_Events_Common' ) ) {
 
 	class UCF_Events_Common {
-		public static function display_events( $items, $layout, $args, $display_type='default' ) {
+		public static function display_events( $items, $layout, $args, $display_type='default', $content='' ) {
 			ob_start();
 
 			// Before
@@ -24,9 +24,9 @@ if ( !class_exists( 'UCF_Events_Common' ) ) {
 			echo $layout_title;
 
 			// Main content/loop
-			$layout_content = ucf_events_display_classic( '', $items, $args, $display_type );
+			$layout_content = ucf_events_display_classic( '', $items, $args, $display_type, $content );
 			if ( has_filter( 'ucf_events_display_' . $layout ) ) {
-				$layout_content = apply_filters( 'ucf_events_display_' . $layout, $layout_content, $items, $args, $display_type );
+				$layout_content = apply_filters( 'ucf_events_display_' . $layout, $layout_content, $items, $args, $display_type, $content );
 			}
 			echo $layout_content;
 
