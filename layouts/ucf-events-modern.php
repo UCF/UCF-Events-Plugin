@@ -126,7 +126,7 @@ add_filter( 'ucf_events_display_modern_nodesc_title', 'ucf_events_display_modern
 if ( !function_exists( 'ucf_events_display_modern_nodesc' ) ) {
 
 	function ucf_events_display_modern_nodesc( $content, $items, $args, $display_type, $fallback_message='' ) {
-		if ( ! is_array( $items ) ) { $items = array( $items ); }
+		if ( $items && ! is_array( $items ) ) { $items = array( $items ); }
 		ob_start();
 	?>
 		<div class="ucf-events-list">
