@@ -1,14 +1,25 @@
 .ucf-events-modern,
 .ucf-events-modern-nodesc {
+  .ucf_events & {
+    line-height: 1.4;
+  }
 
   .ucf-event-row-margin {
     margin-bottom: 1.7rem;
+
+    .ucf_events & {
+      margin-bottom: 1.5rem;
+    }
   }
 
   .ucf-event-when {
     font-size: 1.25rem;
     font-weight: 700;
     text-transform: uppercase;
+
+    .ucf_events & {
+      font-size: .85rem;
+    }
   }
 
   .ucf-event-title-wrapper {
@@ -18,10 +29,18 @@
   .ucf-event-title {
     font-size: 1.2rem;
     font-weight: 700;
+
+    .ucf_events & {
+      font-size: 1rem;
+    }
   }
 
   .ucf-event-description-wrapper {
     font-size: .9rem;
+
+    .ucf_events & {
+      font-size: .875rem;
+    }
 
     a {
       text-decoration: underline;
