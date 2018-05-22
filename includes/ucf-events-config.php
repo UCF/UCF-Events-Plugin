@@ -15,6 +15,7 @@ if ( !class_exists( 'UCF_Events_Config' ) ) {
 				'limit'                => 3,
 				'offset'               => 0,
 				'include_css'          => true,
+				'http_timeout'         => 5,
 				'transient_expiration' => 3,  // hours
 			);
 
@@ -41,6 +42,7 @@ if ( !class_exists( 'UCF_Events_Config' ) ) {
 
 			add_option( self::$option_prefix . 'feed_url', $defaults['feed_url'] );
 			add_option( self::$option_prefix . 'include_css', $defaults['include_css'] );
+			add_option( self::$option_prefix . 'http_timeout', $defaults['http_timeout'] );
 			add_option( self::$option_prefix . 'transient_expiration', $defaults['transient_expiration'] );
 		}
 
@@ -53,6 +55,7 @@ if ( !class_exists( 'UCF_Events_Config' ) ) {
 		public static function delete_options() {
 			delete_option( self::$option_prefix . 'feed_url' );
 			delete_option( self::$option_prefix . 'include_css' );
+			delete_option( self::$option_prefix . 'http_timeout' );
 			delete_option( self::$option_prefix . 'transient_expiration' );
 		}
 
@@ -69,6 +72,7 @@ if ( !class_exists( 'UCF_Events_Config' ) ) {
 			$configurable_defaults = array(
 				'feed_url'             => get_option( self::$option_prefix . 'feed_url' ),
 				'include_css'          => get_option( self::$option_prefix . 'include_css' ),
+				'http_timeout'         => get_option( self::$option_prefix . 'http_timeout' ),
 				'transient_expiration' => get_option( self::$option_prefix . 'transient_expiration' )
 			);
 
@@ -117,6 +121,7 @@ if ( !class_exists( 'UCF_Events_Config' ) ) {
 				switch ( $key ) {
 					case 'limit':
 					case 'offset':
+					case 'http_timeout':
 						$list[$key] = intval( $val );
 						break;
 					case 'transient_expiration':
@@ -160,6 +165,7 @@ if ( !class_exists( 'UCF_Events_Config' ) ) {
 			// Register settings
 			register_setting( 'ucf_events', self::$option_prefix . 'feed_url' );
 			register_setting( 'ucf_events', self::$option_prefix . 'include_css' );
+			register_setting( 'ucf_events', self::$option_prefix . 'http_timeout' );
 			register_setting( 'ucf_events', self::$option_prefix . 'transient_expiration' );
 
 			// Register setting sections
@@ -193,6 +199,18 @@ if ( !class_exists( 'UCF_Events_Config' ) ) {
 					'label_for'   => self::$option_prefix . 'include_css',
 					'description' => 'Include the default css stylesheet for event results within the theme.<br>Leave this checkbox checked unless your theme provides custom styles for event results.',
 					'type'        => 'checkbox'
+				)
+			);
+			add_settings_field(
+				self::$option_prefix . 'http_timeout',
+				'HTTP Timeout',
+				array( 'UCF_Events_Config', 'display_settings_field' ),
+				'ucf_events',
+				'ucf_events_section_general',
+				array(
+					'label_for'   => self::$option_prefix . 'http_timeout',
+					'description' => 'The length of time, in seconds, a request for an events feed should wait before timing out.',
+					'type'        => 'number'
 				)
 			);
 			add_settings_field(
