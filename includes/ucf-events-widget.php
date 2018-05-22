@@ -32,9 +32,7 @@ if ( !class_exists( 'UCF_Events_Widget' ) ) {
 			ob_start();
 
 			echo $args['before_widget'];
-
-			UCF_Events_Common::display_events( $items, $options['layout'], array_merge( $options, array( 'title' => $title ) ), 'widget' );
-
+			echo UCF_Events_Common::display_events( $items, $options['layout'], array_merge( $options, array( 'title' => $title ) ), 'widget', 'No events found.' );
 			echo $args['after_widget'];
 
 			echo ob_get_clean(); // Widget must *echo*!  Do not return the result!
