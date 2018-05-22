@@ -1,6 +1,8 @@
 .ucf-events-modern,
 .ucf-events-modern-nodesc {
-  line-height: 1.4;
+  .ucf_events & {
+    line-height: 1.4;
+  }
 
   .ucf-event-row-margin {
     margin-bottom: 1.7rem;
