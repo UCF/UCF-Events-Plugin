@@ -12,10 +12,11 @@ if ( !class_exists( 'UCF_Events_Feed' ) ) {
 			$transient_name = self::get_transient_name( $feed_url );
 			$items          = get_transient( $transient_name );
 			$expiration     = $args['transient_expiration'] * HOUR_IN_SECONDS;
+			$timeout        = $args['http_timeout'];
 
 			if ( !$items ) {
 				// Fetch new degree data
-				$response = wp_safe_remote_get( $feed_url, array( 'timeout' => 15 ) );
+				$response = wp_safe_remote_get( $feed_url, array( 'timeout' => $timeout ) );
 
 				if ( is_array( $response ) ) {
 					$items = json_decode( wp_remote_retrieve_body( $response ) );
