@@ -2,9 +2,10 @@
 /*
 Plugin Name: UCF Events
 Description: Contains shortcode and widget for displaying UCF Events Feeds
-Version: 2.1.1
+Version: 2.1.2
 Author: UCF Web Communications
 License: GPL3
+Github Plugin URI: UCF/UCF-Events-Plugin
 */
 if ( ! defined( 'WPINC' ) ) {
 	die;
