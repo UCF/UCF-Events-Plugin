@@ -11,10 +11,11 @@ if ( !class_exists( 'UCF_Events_Config' ) ) {
 			$option_defaults = array(
 				'title'                => 'Events',
 				'layout'               => 'classic',
-				'feed_url'             => 'http://events.ucf.edu/upcoming/feed.json',
+				'feed_url'             => 'https://events.ucf.edu/upcoming/feed.json',
 				'limit'                => 3,
 				'offset'               => 0,
 				'include_css'          => true,
+				'http_timeout'         => 5,
 				'transient_expiration' => 3,  // hours
 			);
 
@@ -41,6 +42,7 @@ if ( !class_exists( 'UCF_Events_Config' ) ) {
 
 			add_option( self::$option_prefix . 'feed_url', $defaults['feed_url'] );
 			add_option( self::$option_prefix . 'include_css', $defaults['include_css'] );
+			add_option( self::$option_prefix . 'http_timeout', $defaults['http_timeout'] );
 			add_option( self::$option_prefix . 'transient_expiration', $defaults['transient_expiration'] );
 		}
 
@@ -53,6 +55,7 @@ if ( !class_exists( 'UCF_Events_Config' ) ) {
 		public static function delete_options() {
 			delete_option( self::$option_prefix . 'feed_url' );
 			delete_option( self::$option_prefix . 'include_css' );
+			delete_option( self::$option_prefix . 'http_timeout' );
 			delete_option( self::$option_prefix . 'transient_expiration' );
 		}
 
@@ -69,6 +72,7 @@ if ( !class_exists( 'UCF_Events_Config' ) ) {
 			$configurable_defaults = array(
 				'feed_url'             => get_option( self::$option_prefix . 'feed_url' ),
 				'include_css'          => get_option( self::$option_prefix . 'include_css' ),
+				'http_timeout'         => get_option( self::$option_prefix . 'http_timeout' ),
 				'transient_expiration' => get_option( self::$option_prefix . 'transient_expiration' )
 			);
 
@@ -117,10 +121,16 @@ if ( !class_exists( 'UCF_Events_Config' ) ) {
 				switch ( $key ) {
 					case 'limit':
 					case 'offset':
+					case 'http_timeout':
 						$list[$key] = intval( $val );
 						break;
 					case 'transient_expiration':
-						$list[$key] = floatval( $val );
+						// Transients must be at least greater than 0:
+						$val = floatval( $val );
+						if ( $val <= 0 ) {
+							$val = self::$option_defaults['transient_expiration'];
+						}
+						$list[$key] = $val;
 						break;
 					case 'include_css':
 						$list[$key] = filter_var( $val, FILTER_VALIDATE_BOOLEAN );
@@ -160,6 +170,7 @@ if ( !class_exists( 'UCF_Events_Config' ) ) {
 			// Register settings
 			register_setting( 'ucf_events', self::$option_prefix . 'feed_url' );
 			register_setting( 'ucf_events', self::$option_prefix . 'include_css' );
+			register_setting( 'ucf_events', self::$option_prefix . 'http_timeout' );
 			register_setting( 'ucf_events', self::$option_prefix . 'transient_expiration' );
 
 			// Register setting sections
@@ -196,6 +207,18 @@ if ( !class_exists( 'UCF_Events_Config' ) ) {
 				)
 			);
 			add_settings_field(
+				self::$option_prefix . 'http_timeout',
+				'HTTP Timeout',
+				array( 'UCF_Events_Config', 'display_settings_field' ),
+				'ucf_events',
+				'ucf_events_section_general',
+				array(
+					'label_for'   => self::$option_prefix . 'http_timeout',
+					'description' => 'The length of time, in seconds, a request for an events feed should wait before timing out.',
+					'type'        => 'number'
+				)
+			);
+			add_settings_field(
 				self::$option_prefix . 'transient_expiration',
 				'Transient Data Expiration',  // formatted field title
 				array( 'UCF_Events_Config', 'display_settings_field' ),  // display callback
@@ -203,8 +226,10 @@ if ( !class_exists( 'UCF_Events_Config' ) ) {
 				'ucf_events_section_general',  // option section slug
 				array(  // extra arguments to pass to the callback function
 					'label_for'   => self::$option_prefix . 'transient_expiration',
-					'description' => 'The length of time, in hours, event data should be cached before fresh data is fetched. Updates to this value will not take effect until after any existing transient events data expires.',
-					'type'        => 'number'
+					'description' => 'The length of time, in hours, event data should be cached before fresh data is fetched.<br><strong>This value must be greater than 0 and cannot be blank.</strong> Invalid values will be reset to 3 (plugin default).<br>Updates to this value will not take effect until after any existing transient events data expires.',
+					'type'        => 'number',
+					'min'         => 0.1,
+					'step'        => 0.1
 				)
 			);
 		}
@@ -232,9 +257,12 @@ if ( !class_exists( 'UCF_Events_Config' ) ) {
 					break;
 
 				case 'number':
+					$min = isset( $args['min'] ) ? $args['min'] : null;
+					$max = isset( $args['max'] ) ? $args['max'] : null;
+					$step = isset( $args['step'] ) ? $args['step'] : null;
 					ob_start();
 				?>
-					<input type="number" id="<?php echo $option_name; ?>" name="<?php echo $option_name; ?>" value="<?php echo $current_value; ?>">
+					<input type="number" id="<?php echo $option_name; ?>" name="<?php echo $option_name; ?>" value="<?php echo $current_value; ?>" <?php if ( $min ) { ?>min="<?php echo $min; ?>"<?php } ?> <?php if ( $max ) { ?>max="<?php echo $max; ?>"<?php } ?> <?php if ( $step ) { ?>step="<?php echo $step; ?>"<?php } ?>>
 					<p class="description">
 						<?php echo $description; ?>
 					</p>

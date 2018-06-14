@@ -22,6 +22,13 @@ This plugin provides a shortcode, widget, helper functions, and default styles f
 
 ## Changelog ##
 
+### 2.1.2 ###
+* Bug Fixes:
+  * Fixed display of event widget markup (the display function was not set to `echo` its results)
+  * Reduced text sizes of modern layout dates + titles within widgets 
+* Enhancements:
+  * Added http_timeout to allow timeout to be adjusted
+
 ### 2.1.1 ###
 * Bug Fixes:
   * Removed `is_plugin_active()` check in `ucf-events.php` and replaced with `class_exists()` check to prevent errors when `wp-admin/includes/plugin.php` is not loaded.

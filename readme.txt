@@ -3,7 +3,7 @@ Contributors: ucfwebcom
 Tags: ucf, events
 Requires at least: 4.5.3
 Tested up to: 4.5.3
-Stable tag: 2.1.1
+Stable tag: 2.1.2
 License: GPLv3 or later
 License URI: http://www.gnu.org/copyleft/gpl-3.0.html
 
@@ -28,6 +28,13 @@ This plugin provides a shortcode, widget, helper functions, and default styles f
 
 
 == Changelog ==
+
+= 2.1.2 =
+* Bug Fixes:
+  * Fixed display of event widget markup (the display function was not set to `echo` its results)
+  * Reduced text sizes of modern layout dates + titles within widgets 
+* Enhancements:
+  * Added http_timeout to allow timeout to be adjusted
 
 = 2.1.1 =
 * Bug Fixes:
