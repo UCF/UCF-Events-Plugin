@@ -22,10 +22,15 @@ This plugin provides a shortcode, widget, helper functions, and default styles f
 
 ## Changelog ##
 
+### 2.1.3 ###
+* Bug Fixes:
+  * Added logic to enforce a minimum value greater than 0 for feed transient expirations
+  * Updated default feed URL to use HTTPS
+
 ### 2.1.2 ###
 * Bug Fixes:
   * Fixed display of event widget markup (the display function was not set to `echo` its results)
-  * Reduced text sizes of modern layout dates + titles within widgets 
+  * Reduced text sizes of modern layout dates + titles within widgets
 * Enhancements:
   * Added http_timeout to allow timeout to be adjusted
 
