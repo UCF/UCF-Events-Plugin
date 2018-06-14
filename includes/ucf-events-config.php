@@ -11,7 +11,7 @@ if ( !class_exists( 'UCF_Events_Config' ) ) {
 			$option_defaults = array(
 				'title'                => 'Events',
 				'layout'               => 'classic',
-				'feed_url'             => 'http://events.ucf.edu/upcoming/feed.json',
+				'feed_url'             => 'https://events.ucf.edu/upcoming/feed.json',
 				'limit'                => 3,
 				'offset'               => 0,
 				'include_css'          => true,
