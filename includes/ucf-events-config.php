@@ -125,7 +125,12 @@ if ( !class_exists( 'UCF_Events_Config' ) ) {
 						$list[$key] = intval( $val );
 						break;
 					case 'transient_expiration':
-						$list[$key] = floatval( $val );
+						// Transients must be at least greater than 0:
+						$val = floatval( $val );
+						if ( $val <= 0 ) {
+							$val = self::$option_defaults['transient_expiration'];
+						}
+						$list[$key] = $val;
 						break;
 					case 'include_css':
 						$list[$key] = filter_var( $val, FILTER_VALIDATE_BOOLEAN );
@@ -221,8 +226,10 @@ if ( !class_exists( 'UCF_Events_Config' ) ) {
 				'ucf_events_section_general',  // option section slug
 				array(  // extra arguments to pass to the callback function
 					'label_for'   => self::$option_prefix . 'transient_expiration',
-					'description' => 'The length of time, in hours, event data should be cached before fresh data is fetched. Updates to this value will not take effect until after any existing transient events data expires.',
-					'type'        => 'number'
+					'description' => 'The length of time, in hours, event data should be cached before fresh data is fetched.<br><strong>This value must be greater than 0 and cannot be blank.</strong> Invalid values will be reset to 3 (plugin default).<br>Updates to this value will not take effect until after any existing transient events data expires.',
+					'type'        => 'number',
+					'min'         => 0.1,
+					'step'        => 0.1
 				)
 			);
 		}
@@ -250,9 +257,12 @@ if ( !class_exists( 'UCF_Events_Config' ) ) {
 					break;
 
 				case 'number':
+					$min = isset( $args['min'] ) ? $args['min'] : null;
+					$max = isset( $args['max'] ) ? $args['max'] : null;
+					$step = isset( $args['step'] ) ? $args['step'] : null;
 					ob_start();
 				?>
-					<input type="number" id="<?php echo $option_name; ?>" name="<?php echo $option_name; ?>" value="<?php echo $current_value; ?>">
+					<input type="number" id="<?php echo $option_name; ?>" name="<?php echo $option_name; ?>" value="<?php echo $current_value; ?>" <?php if ( $min ) { ?>min="<?php echo $min; ?>"<?php } ?> <?php if ( $max ) { ?>max="<?php echo $max; ?>"<?php } ?> <?php if ( $step ) { ?>step="<?php echo $step; ?>"<?php } ?>>
 					<p class="description">
 						<?php echo $description; ?>
 					</p>
