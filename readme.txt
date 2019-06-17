@@ -2,6 +2,7 @@
 Contributors: ucfwebcom
 Tags: ucf, events
 Requires at least: 4.5.3
+Requires PHP: 5.4
 Tested up to: 4.5.3
 Stable tag: 2.1.2
 License: GPLv3 or later
