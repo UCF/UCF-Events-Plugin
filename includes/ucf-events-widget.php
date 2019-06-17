@@ -81,7 +81,7 @@ if ( !class_exists( 'UCF_Events_Widget' ) ) {
 	}
 
 	add_action( 'widgets_init',
-		create_function( '', 'return register_widget( "UCF_Events_Widget" );' )
+		function(){ return register_widget( "UCF_Events_Widget" ); }
 	);
 
 }
