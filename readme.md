@@ -23,7 +23,7 @@ This plugin provides a shortcode, widget, helper functions, and default styles f
 ## Changelog ##
 ### 2.1.4 ###
 * Bug Fixes:
-  * Improved compatibility with PHP 7.2 due to deprecation of create_function()
+  * Improved compatibility with PHP 7.2 due to deprecation of `create_function()`
   * Updated Events JSON Feed URL input box to expand the full width of the screen using a built in WP class for better usability
 
 ### 2.1.3 ###

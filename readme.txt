@@ -4,7 +4,7 @@ Tags: ucf, events
 Requires at least: 4.5.3
 Requires PHP: 5.4
 Tested up to: 4.5.3
-Stable tag: 2.1.2
+Stable tag: 2.1.4
 License: GPLv3 or later
 License URI: http://www.gnu.org/copyleft/gpl-3.0.html
 
@@ -31,7 +31,7 @@ This plugin provides a shortcode, widget, helper functions, and default styles f
 == Changelog ==
 = 2.1.4 =
 * Bug Fixes:
-  * Improved compatibility with PHP 7.2 due to deprecation of create_function()
+  * Improved compatibility with PHP 7.2 due to deprecation of `create_function()`
   * Updated Events JSON Feed URL input box to expand the full width of the screen using a built in WP class for better usability
 
 = 2.1.3 =
