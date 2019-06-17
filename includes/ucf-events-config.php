@@ -274,7 +274,7 @@ if ( !class_exists( 'UCF_Events_Config' ) ) {
 				default:
 					ob_start();
 				?>
-					<input type="text" id="<?php echo $option_name; ?>" name="<?php echo $option_name; ?>" value="<?php echo $current_value; ?>">
+					<input type="text" id="<?php echo $option_name; ?>" name="<?php echo $option_name; ?>" value="<?php echo $current_value; ?>" class="large-text">
 					<p class="description">
 						<?php echo $description; ?>
 					</p>
