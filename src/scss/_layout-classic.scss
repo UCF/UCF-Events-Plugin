@@ -37,6 +37,13 @@
   .ucf-event-title,
   .ucf-event-location {
     display: block;
+    text-decoration: none;
+
+    &:focus,
+    &:active,
+    &:hover {
+      text-decoration: underline;
+    }
   }
 
   .ucf-event-location {
