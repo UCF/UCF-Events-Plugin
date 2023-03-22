@@ -21,6 +21,16 @@ This plugin provides a shortcode, widget, helper functions, and default styles f
 
 
 ## Changelog ##
+
+### 2.1.6 ###
+Enhancements:
+* Added composer file.
+
+### 2.1.5 ###
+Enhancements:
+* Update packages and gulpfile.js in https://github.com/UCF/UCF-Events-Plugin/pull/36
+* Adjust underline styles for modern & classic layouts in https://github.com/UCF/UCF-Events-Plugin/pull/37
+
 ### 2.1.4 ###
 * Bug Fixes:
   * Improved compatibility with PHP 7.2 due to deprecation of `create_function()`

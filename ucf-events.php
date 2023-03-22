@@ -2,7 +2,7 @@
 /*
 Plugin Name: UCF Events
 Description: Contains shortcode and widget for displaying UCF Events Feeds
-Version: 2.1.5
+Version: 2.1.6
 Author: UCF Web Communications
 License: GPL3
 Github Plugin URI: UCF/UCF-Events-Plugin

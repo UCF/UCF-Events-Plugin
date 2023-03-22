@@ -1,0 +1,8 @@
+{
+    "name": "ucf/ucf-events-plugin",
+    "description": "Provides a shortcode, widget, functions, and default styles for displaying UCF events.",
+    "type": "wordpress-plugin",
+    "require": {
+        "composer/installers": "~1.0"
+    }
+}
